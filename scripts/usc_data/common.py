@@ -47,7 +47,7 @@ def now_iso() -> str:
 def write_json(path: str, obj, compact: bool = False) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + ".tmp"
-    with open(tmp, "w") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:   # not the Windows ANSI code page
         if compact:   # big files: skip indentation
             json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
         else:
@@ -72,7 +72,7 @@ def write_geojson(path: str, features: list[dict], **meta) -> None:
 @functools.lru_cache(maxsize=1)
 def load_places() -> dict:
     """USC building codes and named outdoor places -> coordinates (see build_places.py)."""
-    with open(PLACES_FILE) as f:
+    with open(PLACES_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 

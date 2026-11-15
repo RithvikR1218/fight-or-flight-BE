@@ -70,6 +70,25 @@ def recency_mixture(basis=config.RECENCY_BASIS):
     return dict(zip(hl.tolist(), a.astype(np.float32)))
 
 
+def placeholder_time_mask(time_occ, seed=0) -> np.ndarray:
+    """True where an incident's time of day can be trusted.
+
+    LAPD records an unknown time as 00:01 or 12:00. 00:01 is almost never real
+    (6.7k reports vs ~300 at 23:59), so all of them are unknown. 12:00 has about
+    twice the reports of 11:00 or 13:00, so only that expected share is kept
+    (a fixed random subset); the rest are unknown. Without this the model
+    learned a noon peak riskier than 10 PM and an inflated midnight."""
+    t = np.asarray(time_occ)
+    known = t != 1
+    noon = np.flatnonzero(t == 1200)
+    if len(noon):
+        expected = ((t == 1100).sum() + (t == 1300).sum()) / 2
+        keep = min(1.0, expected / len(noon))
+        rng = np.random.default_rng(seed)
+        known[noon[rng.random(len(noon)) >= keep]] = False
+    return known
+
+
 def tod_kernel(sigma=config.TOD_SIGMA_HOURS) -> np.ndarray:
     """K[h, h'] = weight a crime at hour h' gets for a row at hour h."""
     h = np.arange(24)
@@ -84,9 +103,18 @@ class History:
 
     def __init__(self, db_path=config.DB_PATH):
         con = sqlite3.connect(db_path)
-        inc = pd.read_sql("SELECT date_occ, hour, cell, tier, crm_cd, crm_cd_desc, weapon_used_cd "
+        inc = pd.read_sql("SELECT date_occ, time_occ, hour, lat, lon, cell, tier, crm_cd, crm_cd_desc, weapon_used_cd "
                           "FROM incidents", con)
         con.close()
+        # crime.db stores the cell at whatever resolution it was exported with (the backend's
+        # export writes its own h3_cell). The model works at config.H3_RES, so re-key any rows
+        # at another resolution from lat/lon; otherwise no cell matches and every cell is no-data.
+        if len(inc):
+            res = np.fromiter((h3.get_resolution(c) for c in inc["cell"]), np.int8, len(inc))
+            off = res != config.H3_RES
+            if off.any():
+                inc.loc[off, "cell"] = [h3.latlng_to_cell(la, lo, config.H3_RES)
+                                        for la, lo in zip(inc.loc[off, "lat"], inc.loc[off, "lon"])]
 
         self.start = dt.date.fromisoformat(config.DATA_START)
         self.end = dt.date.fromisoformat(config.DATA_END)
@@ -111,6 +139,7 @@ class History:
         ci = inc["cell"].map(self.cidx).to_numpy()
         di = inc["d"].to_numpy()
         hi = inc["hour"].to_numpy()
+        known = placeholder_time_mask(inc["time_occ"].to_numpy())   # False = time unknown
         keys = inc[["crm_cd", "crm_cd_desc", "weapon_used_cd"]].drop_duplicates()
         keys["sev"] = [incident_severity(c, d, w) for c, d, w in keys.itertuples(index=False)]
         sev = inc.merge(keys, on=["crm_cd", "crm_cd_desc", "weapon_used_cd"], how="left")["sev"].to_numpy(np.float32)
@@ -135,8 +164,15 @@ class History:
         self.month_of_day = self._month_index(np.arange(self.n_days + 1))
         n_months = int(self.month_of_day[-1]) + 1
         mo = self.month_of_day[di]
-        cube = np.zeros((nu, n_months, 24), dtype=np.int32)
-        np.add.at(cube, (ci, mo, hi), 1)
+        # Placeholder-time incidents (see placeholder_time_mask) are spread over the day
+        # by the hour profile of the known-time ones instead of piling up at 00:00/12:00.
+        self.hour_profile = np.bincount(hi[known], minlength=24) / max(int(known.sum()), 1)
+        cube = np.zeros((nu, n_months, 24), dtype=np.float32)
+        np.add.at(cube, (ci[known], mo[known], hi[known]), 1)
+        unk = ~known
+        if unk.any():
+            np.add.at(cube, (np.repeat(ci[unk], 24), np.repeat(mo[unk], 24), np.tile(np.arange(24), unk.sum())),
+                      np.tile(self.hour_profile, unk.sum()).astype(np.float32))
         self.P_month_hour = prefix(cube)
 
         # Neighbour rings as sparse matrices: ring 1 (6 cells), ring 2 (12 cells).
@@ -157,9 +193,18 @@ class History:
         # Per-incident weighted history. Incidents sorted by day so the decay
         # pass can add one day at a time: S[c, h] = sum of severity x decay over
         # crimes in cell c at hour h on days before the current day.
-        order = np.argsort(di, kind="stable")
-        self._inc_c, self._inc_h, self._inc_s = ci[order], hi[order], sev[order]
-        self._day_start = np.searchsorted(di[order], np.arange(self.n_days + 1))
+        ec, ed, eh, es = ci[known], di[known], hi[known], sev[known]
+        unk = ~known
+        if unk.any():   # unknown time: severity split over the 24 hours by the hour profile
+            n_u = int(unk.sum())
+            ec = np.concatenate([ec, np.repeat(ci[unk], 24)])
+            ed = np.concatenate([ed, np.repeat(di[unk], 24)])
+            eh = np.concatenate([eh, np.tile(np.arange(24), n_u)])
+            es = np.concatenate([es, (np.repeat(sev[unk], 24) * np.tile(self.hour_profile, n_u)).astype(np.float32)])
+        order = np.argsort(ed, kind="stable")
+        self._inc_c, self._inc_h, self._inc_s = ec[order], eh[order], es[order]
+        di_sorted = ed[order]
+        self._day_start = np.searchsorted(di_sorted, np.arange(self.n_days + 1))
         self._mix = {hl: a for hl, a in recency_mixture().items() if a > 1e-6}
         self._decay = {hl: np.float32(0.5 ** (1.0 / hl)) for hl in self._mix}
         self.K = tod_kernel()
@@ -171,7 +216,7 @@ class History:
         self.dist_bl = np.array([geo.dist_to_bluelight_m(a, b) for a, b in cent])
 
         # Positive cell-hours as sorted int64 keys for fast membership tests.
-        cov = ci < len(self.cells)
+        cov = (ci < len(self.cells)) & known   # an unknown-time incident can't label an hour
         self.pos_keys = np.unique(self._key(ci[cov], di[cov], hi[cov]))
         self.pos_keys_violent = np.unique(self._key(ci[cov & viol], di[cov & viol], hi[cov & viol]))
 

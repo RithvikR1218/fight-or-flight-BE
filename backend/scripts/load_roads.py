@@ -34,6 +34,11 @@ EXTRA_TAGS = ["lit", "sidewalk", "footway", "foot", "access", "service"]
 # Mirrors OSMnx's "walk" network filter
 NOT_WALKABLE_HIGHWAY = {"abandoned", "bus_guideway", "construction", "cycleway", "motor", "motorway",
                         "motorway_link", "no", "planned", "platform", "proposed", "raceway", "razed"}
+# ...except that an explicit foot tag wins. USC's main walks (Trousdale Pkwy, Childs Way,
+# Watt Way, Hellman Way, Bloom Walk, W 34th St, ...) are highway=cycleway + foot=designated,
+# and some campus paths are access=private + foot=yes. Dropping them left the planner no
+# way across campus, so routes zig-zagged around it on the few plain footways.
+FOOT_ALLOWED = {"yes", "designated", "permissive"}
 
 
 def flat(v):
@@ -45,10 +50,19 @@ def flat(v):
     return str(v)
 
 
-def walkable(d):
-    return not (d.get("highway") in NOT_WALKABLE_HIGHWAY or d.get("foot") == "no"
-                or d.get("access") == "private" or d.get("service") == "private"
-                or d.get("area") == "yes")
+def walkable(d, in_zone=False):
+    """in_zone: the segment lies inside USC campus / USC Village (pathfinding.campus), where
+    every path is open to pedestrians whatever its access/cycleway tags (Downey Way, for
+    one, is access=private). Fenced sides are handled by pathfinding.campus.CLOSED_SIDES."""
+    foot = flat(d.get("foot"))
+    if foot == "no" or d.get("area") == "yes":
+        return False
+    if in_zone:
+        return d.get("highway") not in NOT_WALKABLE_HIGHWAY - {"cycleway"}
+    if foot in FOOT_ALLOWED:   # explicitly open to pedestrians: cycleway, private service road, ...
+        return d.get("highway") not in NOT_WALKABLE_HIGHWAY - {"cycleway"}
+    return not (d.get("highway") in NOT_WALKABLE_HIGHWAY
+                or d.get("access") == "private" or d.get("service") == "private")
 
 
 def find_input(data_dir):
@@ -63,7 +77,13 @@ def build_graph(pbf, circle, work):
     subprocess.run(["osmium", "cat", pbf, "-f", "osm", "-o", xml, "--overwrite"], check=True)
     G = ox.graph_from_xml(xml, bidirectional=True, simplify=False, retain_all=True)
     os.remove(xml)
-    drop = [(u, v, k) for u, v, k, d in G.edges(keys=True, data=True) if not walkable(d)]
+    from pathfinding.campus import in_zone_point
+
+    def zone(n):
+        return in_zone_point(G.nodes[n]["y"], G.nodes[n]["x"], 0.0)
+
+    drop = [(u, v, k) for u, v, k, d in G.edges(keys=True, data=True)
+            if not walkable(d, zone(u) and zone(v))]
     G.remove_edges_from(drop)
     G = ox.truncate.truncate_graph_polygon(G, circle, truncate_by_edge=True)
     G = ox.truncate.largest_component(G)

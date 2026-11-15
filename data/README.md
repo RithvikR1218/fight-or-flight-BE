@@ -51,7 +51,34 @@ Scrapers in `scripts/usc_data/` (only need `requests`; `osmium` to rebuild place
 | `usc/library_availability.json` | — | same availability by room; re-run `libraries` (e.g. every 15 min) to refresh |
 | `pois/usc_bike_resources.geojson` | `bike_parking` (`rack_status`: current/outdated/informal/locker), `bike_pump`, `bike_service`, `bike_lane`, `bike_transit`, `bike_zone` | USC Bicycle Coalition Google My Map (KML export). **Dated Oct 2015.** |
 | `pois/usc_outdoor_venues.geojson` | `outdoor_venue` | trojanevents.usc.edu outdoor diagrams, with diagram links. Placed via OSM; `location_approx: true` = placed on the adjacent building/plaza. Argue Plaza and Crocker Plaza aren't placed. |
-| `usc/roomfinder_rooms.json` | — | sites.usc.edu/roomfinder (WP REST API): 219 general-use classrooms in 22 buildings, with type, capacity, furniture, equipment, and per-building room counts |
+| `usc/roomfinder_rooms.json` | — | sites.usc.edu/roomfinder (WP REST API, 30 s crawl delay per its robots.txt): 220 centrally scheduled classrooms in 22 buildings, with campus (from the front-page index), type, capacity, furniture, boards, equipment, and per-building room counts |
+| `usc/usc_rooms.json` | — | the same classrooms with building, campus, coordinates and floor (`room-floors` step; see below) |
 | `usc/usc_places.json` | — | building code / venue → coordinates from the OSM study-area extract (`places`) |
 
-Room Finder only covers centrally scheduled classrooms; buildings `CHP` (Health Sciences campus), `HED` and `KOH` have no coordinates yet; add them to `CODE_BY_NAME` in `build_places.py`.
+Room Finder only covers centrally scheduled classrooms. In `roomfinder_rooms.json`, `HED` and `KOH` have no coordinates because the OSM extract lacks them, and `CHP` and `DOH` are on the Health Sciences campus. `usc_rooms.json` resolves all four: HED and KOH from `usc_buildings.geojson`, CHP and DOH from FPM GIS. Room Finder's `DOH` is the Doheny Eye building at HSC, not Doheny Library, which is `DML`.
+
+### Rooms and floors (`usc/usc_rooms.json`)
+
+`python -m scripts.usc_data room-floors` (run after `rooms`) writes `{generated_at, sources, floor_convention, buildings, rooms, report}`. Each room has `id` (`room:THH-101`), `code`, `room`, `building_id` (`bldg:THH`), `building_name`, `campus`, `floor`, `floor_label`, `floor_confidence`, `pathing`, `lat`/`lng` (the building centre), `capacity`, `classroom_type`, `furniture`, `equipment` and `url`. Each building has `name`, `campus`, `lat`/`lng`, `floor_count`, `has_basement` and `floors`.
+
+**Floor convention.** `floor` is an ordinal level. 1, 2, 3 … are the numbered floors, with 1 as the first floor. 0 is a `G`/`GDN` level below floor 1. -1 is `B`/`LL`/`LG` (basement or lower level), and -2 is `SB`. `floor_label` keeps the building's own label.
+
+`floor_confidence` takes one of three values:
+- `exact`: a documented per-room fact.
+- `rule`: USC's numbering. NXX and NXXX rooms are on floor N, and a letter prefix names the level.
+- `unknown`: `floor` is null. Nothing is guessed.
+
+`pathing` is true only for UPC rooms with a known floor, because indoor pathing supports UPC only. The rules and the evidence for each exception are in `backend/app/services/rooms.py`. `parse_room_number` also serves rooms that Room Finder doesn't list (for example `RTH 108`).
+
+**Provenance.**
+- Rooms: Room Finder.
+- Building points and names: `places/usc_buildings.geojson` for UPC; the FPM `Building` layer for other campuses.
+- Floor counts (`BldgFlrInt`) and basements (`HasBasement`): the FPM `Building` layer.
+- Numbering rules: about 170 room-and-floor pairs in FPM's `LactationRoom` and `MenstrualProductDispenser` layers.
+- Leavey Library: its seven classrooms (`LVL 13/16/17/3B/3C/3V/3Y`) are on the Lower Level, per the USC Libraries Leavey tour guide (2023) and libanswers.usc.edu/faq/24137.
+
+**Limits.**
+- FPM GIS publishes no room or floor-plan layer, so per-room floors are inferred from the numbering, not read from a floor plan.
+- Room Finder lists only centrally scheduled classrooms (220), not every room on campus. Offices, labs and department-scheduled rooms (most of RTH, for example) are missing.
+- `GFS 06` has a post but isn't in Room Finder's front-page index, and its floor is unknown.
+- Every room carries `sources` (`roomfinder`, `soc`) and `section_count`. If `usc/soc_rooms.json` exists (rooms seen in class schedules), it is merged in, deduped on code and room, with Room Finder attributes winning. That file isn't built yet: the current Schedule of Classes (classes.usc.edu) shows room locations only to signed-in USC users.

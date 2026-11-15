@@ -35,9 +35,11 @@ class ReverseArgs(BaseArgs):
 @blp.arguments(SearchArgs, location="query")
 @blp.response(200)
 def search(args):
-    """Places best first: text-match quality (exact name/building code > name prefix > word prefix >
-    typo > category meaning > address), then distance from `near`, then popularity.
-    Empty `q` with `category` = nearest places in those categories."""
+    """Places best first: only places relevant to `q` (name, type, description/reviews, meaning;
+    typo-tolerant), ordered mostly by distance from `near`, then popularity. An exact building code
+    or distinctive name comes first. "<building code> <room>" ("rth 108") returns that classroom
+    (kind "room", with its floor) and its building. Empty `q` with `category` = nearest places in
+    those categories. Each result has `match`: name | category | content | address | semantic | room."""
     q = (args.get("q") or "").strip()
     categories = [c.lower() for c in args.get("category") or []]
     if not svc.normalize(q) and not categories:
@@ -58,7 +60,9 @@ def categories():
 @blp.arguments(NearArgs, location="query")
 @blp.response(200)
 def place(args, place_id):
-    """One place: search fields plus weekly hours, phone, website, photo, ratings, reviews, aliases."""
+    """One place: search fields plus weekly hours, phone, website, photo, ratings, reviews, aliases.
+    Rooms (room:<CODE>-<ROOM>) add floor, floor_label, building_id/name, pathing, capacity, ...;
+    a valid room that is not in the dataset is answered from its building (verified: false)."""
     out = svc.place_detail(place_id, near=args.get("near"))
     if out is None:
         abort(404, message=f"unknown place '{place_id}'")

@@ -26,3 +26,7 @@ xgboost-cpu>=3.0,<4
 scipy>=1.11
 numpy>=1.26
 tzdata>=2024.1          # zoneinfo data for opening-hours checks (Windows / slim images)
+# place search: typo matching (C speed-up; search falls back to pure Python without it) and the
+# optional semantic signal (ONNX sentence embeddings on CPU; search runs lexical-only without it)
+rapidfuzz>=3.6,<4
+fastembed>=0.4,<1

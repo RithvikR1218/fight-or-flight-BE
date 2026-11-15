@@ -36,14 +36,31 @@ WALK_FILTER = (
     'platform|proposed|raceway|bridleway|corridor|elevator|escalator"]'
     '["foot"!~"no"]["service"!~"private"]["access"!~"private"]'
 )
+# A way explicitly open to pedestrians is walkable even if it is a cycleway or private:
+# USC's main walks (Trousdale Pkwy, Childs Way, Watt Way, ...) are highway=cycleway + foot=designated.
+FOOT_OK_FILTER = (
+    '["highway"]["area"!~"yes"]["foot"~"^(yes|designated|permissive)$"]'
+    '["highway"!~"abandoned|bus_guideway|construction|motor|planned|platform|proposed|raceway"]'
+)
+# Every path on campus / in the Village is open to pedestrians whatever its access tags
+# (Downey Way is access=private), so ways touching those outlines are fetched unfiltered.
+ZONE_FILTER = '["highway"]["area"!~"yes"]["foot"!~"no"]["highway"!~"motorway|construction|proposed"]'
 TILES = 3  # the bbox is fetched as TILES x TILES pieces to stay under Overpass limits
 
 M_PER_DEG_LAT = 111_320.0
 
 
+def _zone_ways():
+    from .campus import ZERO_RISK_ZONES
+
+    polys = (" ".join(f"{la} {lo}" for la, lo in pts) for pts in ZERO_RISK_ZONES.values())
+    return "".join(f'way{ZONE_FILTER}(poly:"{p}");' for p in polys)
+
+
 def _fetch_tile(s, w, n, e, retries=4):
     q = (f"[out:json][timeout:180];"
-         f"way{WALK_FILTER}({s},{w},{n},{e});(._;>;);out skel qt;")
+         f"(way{WALK_FILTER}({s},{w},{n},{e});way{FOOT_OK_FILTER}({s},{w},{n},{e});{_zone_ways()});"
+         f"(._;>;);out skel qt;")
     for attempt in range(retries):
         try:
             r = requests.post(OVERPASS_URL, data={"data": q}, timeout=240,
@@ -103,10 +120,17 @@ class WalkGraph:
     indexed by edge_index, so per-edge costs can be swapped in as one array."""
 
     def __init__(self, lat, lon, u, v):
+        from .campus import closed_side_mask
+
         self.lat = np.asarray(lat, dtype=float)
         self.lon = np.asarray(lon, dtype=float)
-        self.eu = np.asarray(u, dtype=np.int64)
-        self.ev = np.asarray(v, dtype=np.int64)
+        eu = np.asarray(u, dtype=np.int64)
+        ev = np.asarray(v, dtype=np.int64)
+        # Drop segments that cut through a fenced side of campus away from its gates
+        # (campus.CLOSED_SIDES: Vermont is closed except at Downey Way).
+        keep = ~closed_side_mask(self.lat[eu], self.lon[eu], self.lat[ev], self.lon[ev])
+        self.n_closed = int((~keep).sum())
+        self.eu, self.ev = eu[keep], ev[keep]
         self.length = haversine_np(self.lat[self.eu], self.lon[self.eu],
                                    self.lat[self.ev], self.lon[self.ev])
         self.adj = [[] for _ in range(len(self.lat))]

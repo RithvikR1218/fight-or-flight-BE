@@ -5,6 +5,10 @@ WORKDIR /app
 # risk-model/ is installed as the `algorithm` package: its code imports itself as algorithm.*
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+# Place search embedding model, baked into the image so the first search doesn't download it.
+# Must match SEARCH_EMBED_MODEL (default in app/services/search_semantic.py).
+ENV FASTEMBED_CACHE_PATH=/opt/fastembed SEARCH_EMBED_MODEL=BAAI/bge-small-en-v1.5 HF_HUB_DISABLE_TELEMETRY=1
+RUN python -c "import os; from fastembed import TextEmbedding; TextEmbedding(os.environ['SEARCH_EMBED_MODEL'], cache_dir=os.environ['FASTEMBED_CACHE_PATH'])"
 COPY backend/ /app/
 COPY risk-model/ /app/algorithm/
 COPY pathfinding/ /app/pathfinding/

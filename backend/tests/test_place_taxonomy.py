@@ -69,24 +69,27 @@ def test_slug():
     ("boba", [{"category": "cafe", "subcategory": "bubble_tea_store"}]),
     ("gym", [{"category": "fitness", "subcategory": None}]),
     ("atm", [{"category": "services", "subcategory": "atm"}]),
-    ("library", [{"category": "study", "subcategory": None}]),
+    ("library", [{"category": "study", "subcategory": "library"}]),
     ("parking", [{"category": "parking", "subcategory": None}]),
-    ("cvs", [{"category": "health", "subcategory": "pharmacy"}]),
+    ("drugstore", [{"category": "health", "subcategory": "drug_store"}]),
+    ("hospital", [{"category": "health", "subcategory": "hospital"}]),   # not all of health (dentists, ...)
     ("bathroom", [{"category": "services", "subcategory": "public_bathroom"}]),
 ])
 def test_category_intent_exact(q, expected):
-    assert category_intent(normalize(q)) == expected
+    got = category_intent(normalize(q))
+    assert got[:len(expected)] == expected     # the main intent first; synonyms may list related types after it
 
 
 def test_category_intent_in_longer_query_and_phrases():
     assert {"category": "cafe", "subcategory": None} in category_intent("coffee near vkc")
-    assert category_intent("ice cream") == [{"category": "food", "subcategory": "ice_cream_shop"}]
+    assert category_intent("ice cream")[0] == {"category": "food", "subcategory": "ice_cream_shop"}
+    assert category_intent("starbucks") == []          # brands are matched by name, not as a type
     assert {"category": "transit", "subcategory": "bus_stop"} in category_intent("bus stop")
 
 
 def test_category_intent_prefixes():
     assert category_intent("coff") == [{"category": "cafe", "subcategory": None}]
-    assert {"category": "study", "subcategory": None} in category_intent("libr")
+    assert {"category": "study", "subcategory": "library"} in category_intent("libr")
     assert {"category": "health", "subcategory": "pharmacy"} in category_intent("pharm")
     assert {"category": "food", "subcategory": "ice_cream_shop"} in category_intent("ice cr")
     # 1-2 characters never fire

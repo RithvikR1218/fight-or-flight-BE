@@ -18,7 +18,8 @@ accesslog = "-"
 def post_worker_init(worker):
     def warm():
         with worker.wsgi.app_context():  # worker.wsgi is the loaded Flask app
-            from app.services import risk_model, routing
+            from app.services import risk_model, routing, search
+            search.warm()       # place-search index (~60 MB) + embedding model (~100 MB) per worker
             risk_model.warm()
             routing.warm()
 

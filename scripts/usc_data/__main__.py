@@ -8,11 +8,12 @@ Steps:
   bike        USC Bicycle Coalition map                     -> data/pois/usc_bike_resources.geojson
   venues      Trojan Event Services outdoor venues          -> data/pois/usc_outdoor_venues.geojson
   rooms       Room Finder classroom inventory               -> data/usc/roomfinder_rooms.json
-  all         libraries, bike, venues, rooms
+  room-floors classrooms -> building -> floor (+ FPM GIS)   -> data/usc/usc_rooms.json  (after `rooms`)
+  all         libraries, bike, venues, rooms, room-floors
 """
 import sys
 
-from . import bike, build_places, libraries, outdoor_venues, roomfinder
+from . import bike, build_places, libraries, outdoor_venues, roomfinder, rooms
 
 STEPS = {
     "places": build_places.main,
@@ -20,8 +21,9 @@ STEPS = {
     "bike": bike.main,
     "venues": outdoor_venues.main,
     "rooms": roomfinder.main,
+    "room-floors": rooms.main,
 }
-ALL = ["libraries", "bike", "venues", "rooms"]
+ALL = ["libraries", "bike", "venues", "rooms", "room-floors"]
 
 
 def main():

@@ -117,6 +117,7 @@ def risk_grid(date_iso: str):
             self.no_data_risk = NO_DATA_RISK
             self.cells = {c: v["risk"] for c, v in cache["cells"].items()}
             self.no_data = frozenset(cache.get("no_data_cells", []))
+            self._init_cost(cache)   # routing cost = calibrated probability (pathfinding/risk.py)
 
     return BackendRiskGrid()
 
@@ -137,6 +138,22 @@ def _route_json(r):
     return out
 
 
+def risk_time(at=None, date=None, hour=None):
+    """(local date, hour, UTC instant) whose hourly risk prediction a route uses.
+
+    The model predicts one risk per clock hour. A trip with no time is planned for
+    now; a trip with a time (`at`) uses the prediction for the nearest clock hour
+    (1:44 AM -> 2 AM, 1:20 AM -> 1 AM; 11:40 PM -> midnight of the next day).
+    `date`/`hour` without `at` name a prediction hour directly."""
+    if at is None and date is None and hour is None:
+        at = risk_model.local_now()
+    if at is not None:
+        local = at.astimezone(risk_model.LA)
+        at = (local + dt.timedelta(minutes=30)).replace(minute=0, second=0, microsecond=0)
+    d, h, instant, _ = risk_model.resolve_time(at, date, hour)
+    return d, h, instant
+
+
 def plan(start, end, at=None, date=None, hour=None, **params) -> dict:
     """Safe + shortest route between (lat, lon) points. params: planner knobs
     (max_detour, phone_weight, pass_radius_m)."""
@@ -146,7 +163,7 @@ def plan(start, end, at=None, date=None, hour=None, **params) -> dict:
     trip_km = float(haversine_np(start[0], start[1], end[0], end[1])) / 1000
     if trip_km > MAX_TRIP_KM:
         raise RouteError(f"start and end are {trip_km:.1f} km apart; the limit is {MAX_TRIP_KM:g} km")
-    d, h, _, _ = risk_model.resolve_time(at, date, hour)
+    d, h, instant = risk_time(at, date, hour)
     g = walk_graph()
     for name, (la, lo) in (("start", start), ("end", end)):
         _, snap = g.nearest_node(la, lo)
@@ -157,6 +174,7 @@ def plan(start, end, at=None, date=None, hour=None, **params) -> dict:
     except ValueError as exc:  # same node / no path
         raise RouteError(str(exc)) from exc
     res["date"] = d.isoformat()
+    res["risk_at"] = instant.astimezone(risk_model.LA).isoformat()   # the prediction hour used
     res["safe"] = _route_json(res["safe"])
     res["shortest"] = _route_json(res["shortest"])
     return res

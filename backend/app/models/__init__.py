@@ -4,9 +4,10 @@ from .crime import CrimeIncident
 from .h3_cells import H3Cell
 from .ingest_runs import IngestRun
 from .observations import Observation
-from .places import Place
+from .places import Place, SearchMeta
 from .pois import Poi
 from .roads import RoadEdge, RoadNode
 from .static import Building, Streetlight
 
-__all__ = ["Building", "Streetlight", "H3Cell", "Observation", "CrimeIncident", "IngestRun", "RoadNode", "RoadEdge", "Poi", "Place"]
+__all__ = ["Building", "Streetlight", "H3Cell", "Observation", "CrimeIncident", "IngestRun", "RoadNode", "RoadEdge",
+           "Poi", "Place", "SearchMeta"]

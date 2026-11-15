@@ -21,8 +21,9 @@ class RouteArgs(BaseArgs):
                              metadata={"description": "LA local hour 0-23, default now"})
     max_detour = ma.fields.Float(load_default=0.20, validate=ma.validate.Range(0, 1),
                                  metadata={"description": "safe route may be at most this much longer (0.2 = 20%)"})
-    phone_weight = ma.fields.Float(load_default=0.05, validate=ma.validate.Range(0, 1),
-                                   metadata={"description": "mean-risk points one passed blue-light phone is worth"})
+    phone_weight = ma.fields.Float(load_default=0.01, validate=ma.validate.Range(0, 1),
+                                   metadata={"description": "exposure points one blue-light phone passed off campus "
+                                                            "is worth (a tie-breaker; pathfinding/planner.py)"})
 
 
 @blp.route("")

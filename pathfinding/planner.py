@@ -8,11 +8,11 @@ How a route is chosen
 2. Prune the graph to the ellipse  d(A, n) + d(n, B) <= budget. A node outside
    it can't be on any route within budget (straight-line distance is a lower
    bound on walking distance), so this is exact and makes the search small.
-3. Give every edge a risk (length-weighted mean of the H3 cells it crosses at
-   the chosen hour, from the scoring cache) and a phone protection
+3. Give every edge a risk and a routing cost (length-weighted means over the H3
+   cells it crosses at the chosen hour, from the scoring cache) and a phone protection
    (geo.bluelight_protection of its midpoint: 1 at a phone, ~0 beyond 600 m).
 4. Generate candidates with a small sweep (Lagrangian-style) over two weights:
-        cost(edge) = length x (1 + lam x risk) x (1 - beta x protection)
+        cost(edge) = length x (1 + lam x rcost) x (1 - beta x protection)
    lam trades length for lower risk, beta pulls the route toward phones (beta < 1
    keeps every cost positive, so Dijkstra stays valid). For each (lam, beta)
    we run Dijkstra from A and from B over the pruned graph, which gives
@@ -23,8 +23,13 @@ How a route is chosen
 5. Drop candidates longer than the budget, then pick the one with the lowest
         score = exposure - min(phone_weight x phones_passed, PHONE_CREDIT_CAP x exposure)
                 + detour_weight x detour
-   exposure = sum(edge length x edge risk) / L0, i.e. the risk the walk adds up,
-   in units of the shortest path. (Scoring on mean risk instead rewarded padding
+   exposure = sum(edge length x edge rcost) / L0, i.e. the expected incidents the
+   walk adds up, in units of the shortest path. rcost is the model's calibrated
+   incident probability / the 2023 90th-percentile cell-hour probability
+   (risk.RiskGrid._init_cost), not the 0-1 percentile `risk`: a 99th-percentile
+   block then weighs ~4x a 90th-percentile one instead of ~1.1x.
+   `risk` (percentile) is still what mean_risk / max_risk report for display.
+   (Scoring on mean risk instead rewarded padding
    a route with extra metres of zero-risk campus: the detour lowered the average
    without making any part of the walk safer.)
    A phone counts as passed when the route comes within pass_radius_m of it.
@@ -51,16 +56,16 @@ from .risk import load_risk
 
 # ---- Tunable defaults -----------------------------------------------------
 MAX_DETOUR = 0.20          # route may be at most 20% longer than the shortest path
-PHONE_WEIGHT = 0.05        # one extra phone passed is worth 0.05 of mean risk
-DETOUR_WEIGHT = 0.05       # small tie-break toward shorter routes
-PHONE_CREDIT_CAP = 0.5     # phones can lower a route's score by at most half its exposure
+PHONE_WEIGHT = 0.01        # one phone passed (off campus) is worth 0.01 of exposure: a tie-breaker
+DETOUR_WEIGHT = 0.2        # 5% longer costs 0.01 = one phone, so phones alone can't buy a detour
+PHONE_CREDIT_CAP = 0.2     # phones can lower a route's score by at most 20% of its exposure
 MIN_GAIN = 0.02            # safe route must beat the shortest's score by this much to be shown separately
 SIMILAR_OVERLAP = 0.8      # ...and if it shares this much of its length with the shortest path,
 SIMILAR_GAIN = 0.05        # it must beat it by this much
 PASS_RADIUS_M = 35.0       # within this distance of a phone = "passed" it
 PHONE_SNAP_M = 80.0        # phones farther than this from any street are not via targets
 LAMBDAS = (0.0, 1.0, 3.0, 8.0, 20.0)   # risk weights swept
-BETAS = (0.0, 0.5, 0.85)                # phone-pull weights swept
+BETAS = (0.0, 0.5)                      # phone-pull weights swept
 HIGH_RISK = 0.8            # risk at or above this counts toward high_risk_m
 
 
@@ -70,7 +75,7 @@ class RouteStats:
     length_m: float
     detour_pct: float
     mean_risk: float
-    exposure: float            # sum(length x risk) / shortest length; what the score uses
+    exposure: float            # sum(length x rcost) / shortest length; what the score uses
     max_risk: float
     high_risk_m: float
     no_data_pct: float
@@ -189,10 +194,17 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
     # 3. Edge risk and phone protection (only for edges inside the ellipse).
     n_e = len(g.eu)
     erisk = np.full(n_e, rg.no_data_risk)
+    ecost = np.full(n_e, getattr(rg, "no_data_cost", rg.no_data_risk))
     enodata = np.zeros(n_e)
+    with_cost = hasattr(rg, "edge_risk_cost")
     for k in eidx.tolist():
         u, v = g.eu[k], g.ev[k]
-        erisk[k], enodata[k] = rg.edge_risk(g.lat[u], g.lon[u], g.lat[v], g.lon[v], g.length[k], hour)
+        if with_cost:
+            erisk[k], enodata[k], ecost[k] = rg.edge_risk_cost(
+                g.lat[u], g.lon[u], g.lat[v], g.lon[v], g.length[k], hour)
+        else:   # a risk source without costs: route on risk itself
+            erisk[k], enodata[k] = rg.edge_risk(g.lat[u], g.lon[u], g.lat[v], g.lon[v], g.length[k], hour)
+            ecost[k] = erisk[k]
     mid_lat = (g.lat[g.eu[eidx]] + g.lat[g.ev[eidx]]) / 2
     mid_lon = (g.lon[g.eu[eidx]] + g.lon[g.ev[eidx]]) / 2
     plat = np.array([p[0] for p in phones])
@@ -219,7 +231,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
             label=label, length_m=round(L + da + db, 1),
             detour_pct=round(max(100 * (L / L0 - 1), 0.0), 2),
             mean_risk=round(float((lens * r).sum() / L), 4),
-            exposure=round(float((lens * r).sum() / L0), 4),
+            exposure=round(float((lens * ecost[edges]).sum() / L0), 4),
             max_risk=round(float(r.max()), 4),
             high_risk_m=round(float(lens[r >= HIGH_RISK].sum()), 1),
             no_data_pct=round(100 * float((lens * enodata[edges]).sum() / L), 1),
@@ -234,7 +246,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
     seen.add(tuple(sp_nodes))
     for lam in lambdas:
         for beta in betas:
-            cost = g.length * (1 + lam * erisk) * (1 - beta * eprot)
+            cost = g.length * (1 + lam * ecost) * (1 - beta * eprot)
             da_, pa_n, pa_e = g.dijkstra(a, cost, allowed=allowed)
             db_, pb_n, pb_e = g.dijkstra(b, cost, allowed=allowed)
             routes = [(path_to(pa_n, pa_e, a, b), None)]
@@ -279,6 +291,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
     return {
         "start": list(start), "end": list(end), "hour": int(hour),
         "risk_date": rg.date,
+        "cost_unit": getattr(rg, "cost_unit", "risk"),
         "params": {"max_detour": max_detour, "phone_weight": phone_weight,
                    "detour_weight": detour_weight, "pass_radius_m": pass_radius_m,
                    "lambdas": list(lambdas), "betas": list(betas)},

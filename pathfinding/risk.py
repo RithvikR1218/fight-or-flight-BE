@@ -9,10 +9,10 @@ model area get NO_DATA_RISK (0.5, neutral), so a route never prefers a place
 just because nothing is known about it. Routes report how much of their
 length ran through such cells.
 
-Cells inside the USC University Park Campus and USC Village outlines
-(campus.py) are risk 0 at every hour, whatever the cache says. They are
-recomputed from those outlines at the grid's resolution, so this works on
-res 9 and res 10 alike.
+Points inside the USC University Park Campus and USC Village outlines
+(campus.py, plus a BOUNDARY_M margin for the boundary streets) are risk 0 at
+every hour, whatever the cache says. The test is per point, not per cell, so
+it is exact at res 9 and res 10 alike.
 """
 import json
 import warnings
@@ -24,7 +24,7 @@ import numpy as np
 
 from algorithm.common import config
 
-from .campus import zero_risk_cells
+from .campus import in_zone_point, zero_risk_cells
 
 NO_DATA_RISK = 0.5
 
@@ -57,7 +57,13 @@ class RiskGrid:
         return float(r[int(hour) % 24]), True
 
     def risk_at(self, lat, lon, hour):
-        return self.risk(self.cell(lat, lon), hour)
+        """(risk, known?) at a point: 0 inside a zero-risk zone, else the point's cell."""
+        if in_zone_point(lat, lon):
+            return 0.0, True
+        r = self.cells.get(self.cell(lat, lon))
+        if r is None:
+            return self.no_data_risk, False
+        return float(r[int(hour) % 24]), True
 
     def edge_risk(self, lat1, lon1, lat2, lon2, length_m, hour, step_m=None):
         """Length-weighted mean risk along a straight segment, sampled every

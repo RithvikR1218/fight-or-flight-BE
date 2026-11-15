@@ -84,9 +84,18 @@ class History:
 
     def __init__(self, db_path=config.DB_PATH):
         con = sqlite3.connect(db_path)
-        inc = pd.read_sql("SELECT date_occ, hour, cell, tier, crm_cd, crm_cd_desc, weapon_used_cd "
+        inc = pd.read_sql("SELECT date_occ, hour, lat, lon, cell, tier, crm_cd, crm_cd_desc, weapon_used_cd "
                           "FROM incidents", con)
         con.close()
+        # crime.db stores the cell at whatever resolution it was exported with (the backend's
+        # export writes its own h3_cell). The model works at config.H3_RES, so re-key any rows
+        # at another resolution from lat/lon; otherwise no cell matches and every cell is no-data.
+        if len(inc):
+            res = np.fromiter((h3.get_resolution(c) for c in inc["cell"]), np.int8, len(inc))
+            off = res != config.H3_RES
+            if off.any():
+                inc.loc[off, "cell"] = [h3.latlng_to_cell(la, lo, config.H3_RES)
+                                        for la, lo in zip(inc.loc[off, "lat"], inc.loc[off, "lon"])]
 
         self.start = dt.date.fromisoformat(config.DATA_START)
         self.end = dt.date.fromisoformat(config.DATA_END)

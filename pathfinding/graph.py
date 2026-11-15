@@ -36,6 +36,12 @@ WALK_FILTER = (
     'platform|proposed|raceway|bridleway|corridor|elevator|escalator"]'
     '["foot"!~"no"]["service"!~"private"]["access"!~"private"]'
 )
+# A way explicitly open to pedestrians is walkable even if it is a cycleway or private:
+# USC's main walks (Trousdale Pkwy, Childs Way, Watt Way, ...) are highway=cycleway + foot=designated.
+FOOT_OK_FILTER = (
+    '["highway"]["area"!~"yes"]["foot"~"^(yes|designated|permissive)$"]'
+    '["highway"!~"abandoned|bus_guideway|construction|motor|planned|platform|proposed|raceway"]'
+)
 TILES = 3  # the bbox is fetched as TILES x TILES pieces to stay under Overpass limits
 
 M_PER_DEG_LAT = 111_320.0
@@ -43,7 +49,8 @@ M_PER_DEG_LAT = 111_320.0
 
 def _fetch_tile(s, w, n, e, retries=4):
     q = (f"[out:json][timeout:180];"
-         f"way{WALK_FILTER}({s},{w},{n},{e});(._;>;);out skel qt;")
+         f"(way{WALK_FILTER}({s},{w},{n},{e});way{FOOT_OK_FILTER}({s},{w},{n},{e}););"
+         f"(._;>;);out skel qt;")
     for attempt in range(retries):
         try:
             r = requests.post(OVERPASS_URL, data={"data": q}, timeout=240,

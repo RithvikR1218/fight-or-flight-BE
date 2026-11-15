@@ -21,8 +21,19 @@ How a route is chosen
        (the two trees joined at the phone), so routes that actually walk past
        phones are always on the table.
 5. Drop candidates longer than the budget, then pick the one with the lowest
-        score = mean_risk - phone_weight x phones_passed + detour_weight x detour
+        score = exposure - min(phone_weight x phones_passed, PHONE_CREDIT_CAP x exposure)
+                + detour_weight x detour
+   exposure = sum(edge length x edge risk) / L0, i.e. the risk the walk adds up,
+   in units of the shortest path. (Scoring on mean risk instead rewarded padding
+   a route with extra metres of zero-risk campus: the detour lowered the average
+   without making any part of the walk safer.)
    A phone counts as passed when the route comes within pass_radius_m of it.
+   Phones can cut a route's score by at most PHONE_CREDIT_CAP of its own
+   exposure, so a riskier route can never win on phone count alone (without
+   the cap, leaving a 0-risk campus walk to pass 10 street phones won).
+   Only phones outside the zero-risk zones (campus.py) earn the score credit:
+   on campus the risk is already 0, so a phone there adds no safety and
+   chasing it would only add detour. n_phones still reports every phone passed.
    The plain shortest path is always a candidate, so a valid answer exists.
 """
 import math
@@ -32,6 +43,7 @@ import numpy as np
 
 from algorithm.common import geo
 
+from .campus import in_zone_point
 from .graph import haversine_np, load_graph, path_to
 from .risk import load_risk
 
@@ -39,6 +51,7 @@ from .risk import load_risk
 MAX_DETOUR = 0.20          # route may be at most 20% longer than the shortest path
 PHONE_WEIGHT = 0.05        # one extra phone passed is worth 0.05 of mean risk
 DETOUR_WEIGHT = 0.05       # small tie-break toward shorter routes
+PHONE_CREDIT_CAP = 0.5     # phones can lower a route's score by at most half its exposure
 PASS_RADIUS_M = 35.0       # within this distance of a phone = "passed" it
 PHONE_SNAP_M = 80.0        # phones farther than this from any street are not via targets
 LAMBDAS = (0.0, 1.0, 3.0, 8.0, 20.0)   # risk weights swept
@@ -52,6 +65,7 @@ class RouteStats:
     length_m: float
     detour_pct: float
     mean_risk: float
+    exposure: float            # sum(length x risk) / shortest length; what the score uses
     max_risk: float
     high_risk_m: float
     no_data_pct: float
@@ -66,10 +80,16 @@ class RouteStats:
     def n_phones(self):
         return len(self.phones_passed)
 
+    @property
+    def n_phones_scored(self):
+        """Phones passed outside the zero-risk zones (the ones the score rewards)."""
+        return sum(not in_zone_point(p["lat"], p["lon"], 0.0) for p in self.phones_passed)
+
     def summary(self):
         d = asdict(self)
         d.pop("coords")
         d["n_phones"] = self.n_phones
+        d["n_phones_scored"] = self.n_phones_scored
         return d
 
 
@@ -168,6 +188,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
             label=label, length_m=round(L + da + db, 1),
             detour_pct=round(max(100 * (L / L0 - 1), 0.0), 2),
             mean_risk=round(float((lens * r).sum() / L), 4),
+            exposure=round(float((lens * r).sum() / L0), 4),
             max_risk=round(float(r.max()), 4),
             high_risk_m=round(float(lens[r >= HIGH_RISK].sum()), 1),
             no_data_pct=round(100 * float((lens * enodata[edges]).sum() / L), 1),
@@ -208,7 +229,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
                 cands.append(stats(nodes, edges, "safe", lam=lam, beta=beta, via_phone=name))
 
     for c in cands:
-        c.score = round(c.mean_risk - phone_weight * c.n_phones
+        c.score = round(c.exposure - min(phone_weight * c.n_phones_scored, PHONE_CREDIT_CAP * c.exposure)
                         + detour_weight * max(c.detour_pct, 0) / 100, 4)
     best = replace(min(cands, key=lambda c: (c.score, c.length_m)), label="safe")
     return {

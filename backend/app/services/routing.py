@@ -117,6 +117,7 @@ def risk_grid(date_iso: str):
             self.no_data_risk = NO_DATA_RISK
             self.cells = {c: v["risk"] for c, v in cache["cells"].items()}
             self.no_data = frozenset(cache.get("no_data_cells", []))
+            self._init_cost(cache)   # routing cost = calibrated probability (pathfinding/risk.py)
 
     return BackendRiskGrid()
 

@@ -27,6 +27,18 @@ from algorithm.common import config
 from .campus import in_zone_point, zero_risk_cells
 
 NO_DATA_RISK = 0.5
+COST_REF_QUANTILE = 0.9   # routing cost 1.0 = the 2023 90th-percentile cell-hour probability
+
+
+def _cost_ref():
+    """(p_ref, p_median): incident probabilities at the 2023 90th and 50th percentile
+    of cell-hours, from model_meta.json risk_quantiles. None if unavailable."""
+    try:
+        qs = np.asarray(json.loads(Path(config.META_PATH).read_text())["risk_quantiles"], dtype=float)
+    except Exception:  # noqa: BLE001
+        return None
+    grid = np.linspace(0, 1, len(qs))
+    return float(np.interp(COST_REF_QUANTILE, grid, qs)), float(np.interp(0.5, grid, qs))
 
 
 class RiskGrid:
@@ -43,6 +55,27 @@ class RiskGrid:
         self.no_data_risk = no_data_risk
         self.cells = {c: v["risk"] for c, v in cache["cells"].items()}
         self.no_data = frozenset(cache.get("no_data_cells", []))
+        self._init_cost(cache)
+
+    def _init_cost(self, cache):
+        """Routing cost per cell-hour: calibrated incident probability / p_ref.
+
+        `risk` is a percentile rank, so a 99th-percentile block is only ~2x a median
+        one, while its probability is often 10x or more. Routing sums cost (expected
+        incidents, in units of a 90th-percentile cell-hour) so hot spots weigh what
+        they should; `risk` stays the display value. Caches without `prob` fall back
+        to cost = risk."""
+        ref = _cost_ref()
+        cells = cache["cells"]
+        has_prob = bool(cells) and all("prob" in v for v in cells.values())
+        if ref is None or not has_prob:
+            self.cost = {c: list(map(float, r)) for c, r in self.cells.items()}
+            self.no_data_cost, self.cost_unit = self.no_data_risk, "risk"
+            return
+        p_ref, p_med = ref
+        self.cost = {c: (np.asarray(v["prob"], dtype=float) / p_ref).tolist() for c, v in cells.items()}
+        self.no_data_cost = p_med / p_ref      # neutral = a median cell-hour, like risk 0.5
+        self.cost_unit = f"probability / {p_ref:.4g} (2023 p90 cell-hour)"
 
     def cell(self, lat: float, lon: float) -> str:
         return h3.latlng_to_cell(lat, lon, self.res)
@@ -64,6 +97,24 @@ class RiskGrid:
         if r is None:
             return self.no_data_risk, False
         return float(r[int(hour) % 24]), True
+
+    def point(self, lat, lon, hour):
+        """(risk, cost, known?) at a point: 0 inside a zero-risk zone."""
+        if in_zone_point(lat, lon):
+            return 0.0, 0.0, True
+        c = self.cell(lat, lon)
+        r = self.cells.get(c)
+        if r is None:
+            return self.no_data_risk, self.no_data_cost, False
+        h = int(hour) % 24
+        return float(r[h]), float(self.cost[c][h]), True
+
+    def edge_risk_cost(self, lat1, lon1, lat2, lon2, length_m, hour, step_m=None):
+        """(mean risk, share without data, mean routing cost) along a straight segment."""
+        n = max(1, int(np.ceil(length_m / (step_m or self.step_m))))
+        t = (np.arange(n) + 0.5) / n
+        r, c, k = zip(*(self.point(lat1 + (lat2 - lat1) * f, lon1 + (lon2 - lon1) * f, hour) for f in t))
+        return float(np.mean(r)), 1.0 - float(np.mean(k)), float(np.mean(c))
 
     def edge_risk(self, lat1, lon1, lat2, lon2, length_m, hour, step_m=None):
         """Length-weighted mean risk along a straight segment, sampled every

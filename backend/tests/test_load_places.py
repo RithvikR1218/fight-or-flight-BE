@@ -1,7 +1,8 @@
 import json
 
 from scripts.load_places import (
-    COLS, building_row, google_place_row, name_aliases, poi_row, popularity, search_text,
+    COLS, annotate_buildings, building_row, google_place_row, name_aliases, poi_row, popularity, room_row,
+    search_text,
 )
 
 NNBSP, EN = " ", "–"
@@ -77,6 +78,21 @@ def test_building_row():
     assert (r["category"], r["subcategory"]) == ("study", "library")
     assert r["popularity"] == 0.8
     assert r["detail"]["code"] == "DML" and r["detail"]["entrances"] == [[-118.2838, 34.0199]]
+
+
+def test_room_row_and_building_floor_facts():
+    r = room_row({"id": "room:THH-201", "code": "THH", "room": "201", "building_id": "bldg:THH",
+                  "building_name": "Mark Taper Hall of Humanities", "campus": "UPC", "floor": 2, "floor_label": "2",
+                  "floor_confidence": "rule", "pathing": True, "lat": 34.0222, "lng": -118.2845, "capacity": 40,
+                  "classroom_type": "General Use Classroom", "equipment": ["Projector"], "url": "https://x"})
+    assert (r["id"], r["kind"], r["name"], r["category"], r["subcategory"]) == (
+        "room:THH-201", "room", "THH 201", "campus", "classroom")
+    assert "THH201" in r["aliases"] and "Mark Taper Hall of Humanities 201" in r["aliases"]
+    assert r["detail"]["floor"] == 2 and r["detail"]["pathing"] is True and r["detail"]["building_id"] == "bldg:THH"
+    assert set(COLS) <= set(r)
+    b = building_row(feat(-118.2845, 34.0222, code="THH", name="Mark Taper Hall of Humanities"))
+    annotate_buildings([b], {"buildings": {"THH": {"floor_count": 4, "has_basement": True, "campus": "UPC"}}})
+    assert b["detail"]["floor_count"] == 4 and b["detail"]["campus"] == "UPC"
 
 
 def test_poi_row():

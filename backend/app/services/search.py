@@ -1,417 +1,222 @@
-"""Place search: query understanding -> one-statement candidate retrieval -> pure-Python ranking.
+"""Place search service: one in-memory index per worker process, plus place detail / categories /
+reverse geocoding (those still read the DB).
 
-Stage 0 `parse_query`   normalize q, split tokens, drop stop words, find category intent.
-Stage 1 `fetch_candidates`  ONE SQL statement: a UNION ALL of small index-friendly branches
-        (exact, name prefix, word prefix/substring, typo, category intent, every-token, address),
-        each AND-ed with the hard filters and capped by its own ORDER BY ... LIMIT, so the cut
-        keeps the nearest (and, for short queries, the most popular) strong matches.
-Stage 2 `rank`          tiers by text-match quality, then a blend of proximity and popularity.
+Retrieval and ranking live in services/search_index.py (pure numpy, no DB) and are unit-tested and
+evaluated offline (tests/search_eval). This module only:
 
-`rank` and `parse_query` touch no database, so they are unit-tested with dict fixtures.
+* loads the index lazily on the first search (all searchable fields of every place, ~10k rows,
+  plus stored embeddings when present) and keeps it per worker process;
+* every SEARCH_INDEX_TTL seconds (default 60) runs one cheap query for search_meta.places_version
+  (bumped by scripts/load_places at the end of a load) and rebuilds in the background of the
+  request that notices a change, while other threads keep serving the old index;
+* embeds the query for the semantic signal when available (services/search_semantic.py).
+
+Memory per worker: index ~40 MB (Python objects) + 15 MB vectors; the ONNX embedding model adds
+~100-130 MB once loaded. Thread-safe: the index is immutable and swapped atomically.
 """
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass, field
+import logging
+import threading
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import text
+from flask import current_app, has_app_context
 
 from ..db_utils import fetch_all
 from ..extensions import db
+from .search_index import SearchIndex, haversine_m
 from .text_norm import normalize
 
+log = logging.getLogger(__name__)
 LA = ZoneInfo("America/Los_Angeles")
 
-# Words that carry no place meaning in a query ("coffee near vermont", "the lot").
-STOP_WORDS = frozenset("a an and at by for in near of on or the to around".split())
-# Generic words that only refine a category query ("coffee shop", "pizza place", "food near me").
-# Dropped only when the query has a category intent, so "The Shop" still searches by name.
-INTENT_FILLER = frozenset("shop shops place places spot spots store stores me nearby best good open now".split())
+INDEX_COLUMNS = ("id, kind, name, aliases, category, subcategory, categories, address, lat, lng, rating, "
+                 "review_count, popularity, hours, detail")
+DEFAULT_TTL_S = 60.0
 
-# Text-match tiers, best first.
-T_EXACT, T_PREFIX, T_WORD, T_FUZZY, T_INTENT, T_WEAK = range(6)
-# Tiers are compared through bands. Full-name prefix (T1) and word prefix (T2) share a band so a
-# word-prefix match next door ("dulc" -> "Cafe Dulce", 300 m) is not buried under full-prefix
-# matches 12 km away; T1 keeps a score bonus inside the band. Every other tier is its own band.
-TIER_BAND = {T_EXACT: 0, T_PREFIX: 1, T_WORD: 1, T_FUZZY: 2, T_INTENT: 3, T_WEAK: 4}
-FULL_PREFIX_BONUS = 0.15     # ~ the proximity gap between 100 m and 400 m
-
-D0_M = 400.0                 # walking scale: proximity = 1 / (1 + d / D0)
-NEUTRAL_PROXIMITY = 0.5      # when no `near` is given
-BUILDING_BOOST = 0.06        # campus building codes are the most common search
-WORD_SIM_THRESHOLD = 0.45    # pg_trgm.word_similarity_threshold for the typo branch
+_state = {"index": None, "version": None, "checked": 0.0, "meta": {}}
+_state_lock = threading.Lock()
+_build_lock = threading.Lock()
+_encoder = None
+_warned = set()
 
 
-# ---------------------------------------------------------------- Stage 0: query understanding
+def _warn_once(key, msg, *args):
+    if key not in _warned:
+        _warned.add(key)
+        log.warning(msg, *args)
 
-def _category_intent(q_norm):
+
+def _config(key, default):
+    if has_app_context():
+        return current_app.config.get(key, default)
+    return default
+
+
+# ---------------------------------------------------------------- loading the index
+
+def read_meta():
+    """search_meta as a dict ({} when the table does not exist yet, i.e. before migration 0005)."""
     try:
-        from .place_taxonomy import category_intent
-    except ImportError:  # data layer not installed yet
-        return []
-    return category_intent(q_norm) or []
+        rows = fetch_all("SELECT key, value FROM search_meta")
+        return {r["key"]: r["value"] for r in rows}
+    except Exception:
+        db.session.rollback()
+        return {}
 
 
-@dataclass
-class Query:
-    raw: str = ""
-    norm: str = ""
-    tokens: list = field(default_factory=list)      # every token of norm
-    sig: list = field(default_factory=list)         # significant tokens (stop/filler words removed)
-    token_intents: dict = field(default_factory=dict)  # token -> [intent], for tokens with one
-    covering: list = field(default_factory=list)    # intents that explain the whole query
-
-    @property
-    def short(self):
-        return 0 < len(self.norm) <= 2
-
-    @property
-    def has_text(self):
-        return bool(self.norm)
+def current_version(meta=None):
+    meta = read_meta() if meta is None else meta
+    if meta.get("places_version"):
+        return meta["places_version"]
+    # pre-0005 fallback: changes whenever rows are added or removed
+    row = fetch_all("SELECT count(*)::text AS n, coalesce(max(id), '') AS m FROM places")[0]
+    return f"count:{row['n']}:{row['m']}"
 
 
-def parse_query(q, intent_fn=None) -> Query:
-    intent_fn = intent_fn or _category_intent
-    norm = normalize(q)
-    tokens = norm.split()
-    sig = [t for t in tokens if t not in STOP_WORDS] or list(tokens)
-    token_intents = {t: intent_fn(t) for t in dict.fromkeys(sig) if len(t) >= 3}
-    token_intents = {t: v for t, v in token_intents.items() if v}
-    full = intent_fn(" ".join(sig)) if sig else []
-    if (full or token_intents) and len(sig) > 1:
-        trimmed = [t for t in sig if t not in INTENT_FILLER]
-        if trimmed and trimmed != sig:
-            sig = trimmed
-            full = intent_fn(" ".join(sig)) or full
-    # The whole-query intent explains the query only if every token means a category too:
-    # "thai food" -> thai restaurants; "coffee bean" (bean has no intent) -> must match by name.
-    covering = full if full and (len(sig) == 1 or all(t in token_intents for t in sig)) else []
-    # "thai food" -> thai restaurants, not all food: a subcategory intent supersedes its parent.
-    specific = {it["category"] for it in covering if it.get("subcategory")}
-    covering = [it for it in covering if it.get("subcategory") or it["category"] not in specific]
-    return Query(raw=q or "", norm=norm, tokens=tokens, sig=sig, token_intents=token_intents, covering=covering)
+def load_rows():
+    """Every searchable place, with its embedding when the column exists."""
+    try:
+        return fetch_all(f"SELECT {INDEX_COLUMNS}, embedding FROM places")
+    except Exception as e:   # migration 0005 not applied yet: no embedding column
+        db.session.rollback()
+        _warn_once("no-embedding-col", "places.embedding unavailable (%s); semantic search off", type(e).__name__)
+        return fetch_all(f"SELECT {INDEX_COLUMNS} FROM places")
 
 
-# ---------------------------------------------------------------- Stage 1: candidate retrieval
-
-SEARCH_COLUMNS = ("p.id, p.kind, p.name, p.name_norm, p.aliases, p.category, p.subcategory, p.address, "
-                  "p.lat, p.lng, p.rating, p.review_count, p.popularity, p.hours")
-
-
-def _intent_sql(intents, params, prefix):
-    parts = []
-    for i, it in enumerate(intents):
-        params[f"{prefix}c{i}"] = it["category"]
-        if it.get("subcategory"):
-            params[f"{prefix}s{i}"] = it["subcategory"]
-            parts.append(f"(category = :{prefix}c{i} AND subcategory = :{prefix}s{i})")
-        else:
-            parts.append(f"category = :{prefix}c{i}")
-    return "(" + " OR ".join(parts) + ")" if parts else None
+def build_index_from_db():
+    meta = read_meta()
+    version = current_version(meta)
+    t0 = time.perf_counter()
+    rows = load_rows()
+    idx = SearchIndex(rows, semantic_model=meta.get("embedding_model"))
+    log.info("search index: %d places in %.1fs (version %s, vectors %s)", idx.N, time.perf_counter() - t0,
+             version, "yes" if idx.vectors is not None else "no")
+    return idx, version, meta
 
 
-def build_candidate_sql(query: Query, near=None, bbox=None, categories=None, cap=100):
-    """-> (sql, params). One SELECT. params["_trgm"] says whether it uses the `<%` operator,
-    which needs the transaction-local word-similarity threshold set first."""
-    params = {}
-    hard = []
-    if bbox:
-        hard.append("geom && ST_MakeEnvelope(:bb0, :bb1, :bb2, :bb3, 4326)")
-        params.update({f"bb{i}": v for i, v in enumerate(bbox)})
-    if categories:
-        hard.append("category = ANY(:cats)")
-        params["cats"] = list(categories)
-    if near:
-        params["lat"], params["lng"] = near
-        knn = "geom <-> ST_SetSRID(ST_MakePoint(:lng, :lat), 4326)"
-        order = knn
-    else:
-        knn = None
-        order = "popularity DESC NULLS LAST"
-    params["cap"] = int(cap)
-
-    branches = []
-
-    def branch(score, cond, order_by=order):
-        where = " AND ".join([f"({cond})"] + hard)
-        branches.append(f"(SELECT id, {score}::real AS s FROM places WHERE {where} ORDER BY {order_by} LIMIT :cap)")
-
-    uses_trgm_op = False
-    q = query.norm
-    if not q:
-        # Category chips: nearest places in the category (pure KNN), popularity tiebreak.
-        where = " AND ".join(hard) or "TRUE"
-        order_by = f"{knn}, popularity DESC NULLS LAST" if knn else order
-        sql = (f"SELECT {SEARCH_COLUMNS}, 1.0::real AS sql_score FROM places p WHERE {where} "
-               f"ORDER BY {order_by} LIMIT :cap")
-        return sql, params
-
-    params["q"] = q
-    params["q_prefix"] = q + "%"
-    params["q_word"] = "% " + q + " %"
-    # exact name or exact alias/word (building codes: "vkc"); the plain LIKE lets the trigram
-    # index prefilter for >= 3 chars, the padded LIKE checks word boundaries
-    exact_word = "(' ' || search_text || ' ') LIKE :q_word"
-    if len(q) >= 3:
-        params["q_contains"] = "%" + q + "%"
-        exact_word = f"(search_text LIKE :q_contains AND {exact_word})"
-    branch(4, f"name_norm = :q OR {exact_word}")
-    # full-name prefix (btree text_pattern_ops)
-    branch(3, "name_norm LIKE :q_prefix")
-    if len(q) >= 3:
-        # word prefix / substring anywhere in name + aliases (GIN trigram)
-        branch(2, "search_text LIKE :q_contains")
-        # typos ("doheney", "starbuks"): word similarity against name + aliases (GIN trigram)
-        uses_trgm_op = True
-        branch("1 + word_similarity(:q, search_text)", ":q <% search_text",
-               order_by=f"word_similarity(:q, search_text) DESC, {order}")
-    else:
-        # 1-2 chars: trigrams cannot help; prefix of any word, cut by order (+ popularity below)
-        params["q_wordprefix"] = "% " + q + "%"
-        branch(2, "search_text LIKE :q_wordprefix")
-    if query.short and near:
-        # short queries: also keep the most popular prefix matches, not only the nearest
-        branch(3, "name_norm LIKE :q_prefix", order_by="popularity DESC NULLS LAST")
-        branch(2, "search_text LIKE :q_wordprefix", order_by="popularity DESC NULLS LAST")
-    if query.covering:
-        branch(1, _intent_sql(query.covering, params, "ci"))
-    if len(query.sig) >= 2:
-        # every significant token must match somewhere: name/alias, address, typo, or its category
-        conds, driver = [], []
-        for i, t in enumerate(query.sig):
-            params[f"t{i}"] = "%" + t + "%"
-            alts = [f"search_text LIKE :t{i}", f"lower(address) LIKE :t{i}"]
-            if len(t) >= 3:
-                driver.append(f"search_text LIKE :t{i}")
-            if len(t) >= 4:
-                params[f"tq{i}"] = t
-                alts.append(f":tq{i} <% search_text")
-                driver.append(f":tq{i} <% search_text")
-                uses_trgm_op = True
-            intent = _intent_sql(query.token_intents.get(t, []), params, f"ti{i}")
-            if intent:
-                alts.append(intent)
-                driver.append(intent)
-            conds.append("(" + " OR ".join(alts) + ")")
-        # Index driver (GIN trigram / btree category, BitmapOr): at least one token must hit the
-        # name, an alias or its category; the per-token conditions then filter that small set.
-        # (Places matching every token only through the address are left to the address branch.)
-        if driver:
-            conds.insert(0, "(" + " OR ".join(driver) + ")")
-        branch(1.5, " AND ".join(conds))
-    if len(q) >= 4:
-        params["q_addr"] = "%" + q + "%"
-        branch(0.5, "lower(address) LIKE :q_addr")
-
-    union = "\n  UNION ALL\n  ".join(branches)
-    outer_order = f"b.s DESC, p.{knn}" if knn else "b.s DESC, p.popularity DESC NULLS LAST"
-    sql = f"""
-SELECT {SEARCH_COLUMNS}, b.s AS sql_score
-FROM (SELECT id, max(s) AS s FROM (
-  {union}
-) u GROUP BY id) b
-JOIN places p ON p.id = b.id
-ORDER BY {outer_order}"""
-    # No outer LIMIT: each branch is already cut to :cap, and a cut by sql_score here would drop the
-    # low-scored branches (category intent, address) whenever the text branches fill up.
-    params["_trgm"] = uses_trgm_op
-    return sql, params
+def get_index():
+    """The worker's index; built on first use, refreshed when the loader bumped places_version."""
+    ttl = float(_config("SEARCH_INDEX_TTL", DEFAULT_TTL_S))
+    idx = _state["index"]
+    now = time.monotonic()
+    if idx is not None and now - _state["checked"] < ttl:
+        return idx
+    if idx is None:
+        with _build_lock:                       # first request(s) wait for the first build
+            if _state["index"] is None:
+                _install(*build_index_from_db())
+        return _state["index"]
+    # stale check: one thread looks (one small query); a changed version is rebuilt in a background
+    # thread while every request keeps using the current index
+    if not _build_lock.acquire(blocking=False):
+        return idx
+    started = False
+    try:
+        with _state_lock:
+            _state["checked"] = now
+        try:
+            version = current_version()
+        except Exception as e:
+            db.session.rollback()
+            _warn_once("version", "search index version check failed: %s", e)
+            return idx
+        if version != _state["version"]:
+            app = current_app._get_current_object()
+            threading.Thread(target=_rebuild, args=(app,), name="search-index-rebuild", daemon=True).start()
+            started = True
+    finally:
+        if not started:
+            _build_lock.release()
+    return idx
 
 
-def candidate_cap(limit, open_now):
-    cap = min(150, max(60, limit * 5))
-    return min(300, cap * 2) if open_now else cap
+def _rebuild(app):
+    try:
+        with app.app_context():
+            _install(*build_index_from_db())
+    except Exception as e:
+        log.warning("search index rebuild failed (keeping the old one): %s", e)
+    finally:
+        _build_lock.release()
 
 
-def fetch_candidates(query, near=None, bbox=None, categories=None, cap=100):
-    sql, params = build_candidate_sql(query, near, bbox, categories, cap)
-    if params.pop("_trgm", False):
-        # Transaction-local (the request's session is rolled back / removed at teardown).
-        db.session.execute(text(f"SET LOCAL pg_trgm.word_similarity_threshold = {WORD_SIM_THRESHOLD}"))
-    return fetch_all(sql, **params)
+def _install(idx, version, meta):
+    with _state_lock:
+        _state.update(index=idx, version=version, meta=meta, checked=time.monotonic())
 
 
-# ---------------------------------------------------------------- Stage 2: ranking
-
-def osa_distance(a, b, max_d=None):
-    """Damerau-Levenshtein (optimal string alignment). Stops early past max_d."""
-    if a == b:
-        return 0
-    la, lb = len(a), len(b)
-    if max_d is not None and abs(la - lb) > max_d:
-        return max_d + 1
-    prev2, prev = None, list(range(lb + 1))
-    for i in range(1, la + 1):
-        cur = [i] + [0] * lb
-        for j in range(1, lb + 1):
-            cost = 0 if a[i - 1] == b[j - 1] else 1
-            cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost)
-            if i > 1 and j > 1 and a[i - 1] == b[j - 2] and a[i - 2] == b[j - 1]:
-                cur[j] = min(cur[j], prev2[j - 2] + 1)
-        if max_d is not None and min(cur) > max_d:
-            return max_d + 1
-        prev2, prev = prev, cur
-    return prev[lb]
+def set_index(idx, version="test"):
+    """Install an index directly (tests, offline tools)."""
+    _install(idx, version, {})
 
 
-def edit_budget(token):
-    n = len(token)
-    return 0 if n <= 3 else 1 if n <= 7 else 2
+def warm():
+    """Build the index (and load the embedding model) now; gunicorn calls this per worker at start."""
+    try:
+        idx = get_index()
+        enc = encoder()
+        if enc is not None and idx.vectors is not None:
+            enc.encode("coffee")
+    except Exception as e:
+        log.warning("search warm-up failed (first search will retry): %s", e)
 
 
-def haversine_m(lat1, lng1, lat2, lng2):
-    p1, p2 = math.radians(lat1), math.radians(lat2)
-    dp, dl = p2 - p1, math.radians(lng2 - lng1)
-    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
-    return 2 * 6371008.8 * math.asin(math.sqrt(a))
+def encoder():
+    """QueryEncoder or None (SEARCH_SEMANTIC=off / fastembed missing)."""
+    global _encoder
+    if _encoder is None:
+        from .search_semantic import QueryEncoder
+
+        _encoder = QueryEncoder(mode=str(_config("SEARCH_SEMANTIC", "auto")).lower())
+    return None if _encoder.disabled_reason else _encoder
 
 
-def _intent_match(c, intents):
-    for it in intents or ():
-        if c.get("category") == it["category"] and (not it.get("subcategory") or c.get("subcategory") == it["subcategory"]):
-            return 2 if it.get("subcategory") else 1
-    return 0
+def _query_vector(idx, pq):
+    if pq is None or not pq.semantic_text or idx.vectors is None:
+        return None
+    enc = encoder()
+    if enc is None:
+        return None
+    stored = _state["meta"].get("embedding_model") or idx.semantic_model
+    if stored and enc.model_name and stored != enc.model_name:
+        _warn_once("model-mismatch", "stored vectors are from %s but SEARCH_EMBED_MODEL is %s; semantic off "
+                   "(re-run scripts.load_places)", stored, enc.model_name)
+        return None
+    v = enc.encode(pq.semantic_text)
+    if v is not None and v.shape[-1] != idx.vectors.shape[1]:
+        _warn_once("dim-mismatch", "query vector dim %s != stored %s; semantic off", v.shape[-1], idx.vectors.shape[1])
+        return None
+    return v
 
 
-def _token_match(t, word_lists, compacts, has_intent):
-    """Best name/alias match of one token -> (kind, quality) or None.
-    kind: 'prefix' (t starts a word), 'fuzzy' (within edit budget), 'sub' (inside a word)."""
-    best = None
-    for words in word_lists:
-        for pos, w in enumerate(words):
-            if w.startswith(t):
-                q = len(t) / len(w) + (0.1 if pos == 0 else 0.0)
-                if best is None or best[0] != "prefix" or q > best[1]:
-                    best = ("prefix", q)
-    if best:
-        return best
-    for comp in compacts:  # "vonklein" -> "vonkleinsmidcenter"
-        if len(t) >= 4 and comp.startswith(t):
-            return ("prefix", 0.8 * len(t) / len(comp))
-    budget = edit_budget(t)
-    # A category word ("cafe") fuzzy-matching an unrelated name ("care") is noise, not a typo.
-    if budget and not has_intent:
-        for words in word_lists:
-            for w in words:
-                d = osa_distance(t, w, budget)
-                if len(w) > len(t):
-                    d = min(d, osa_distance(t, w[:len(t)], budget))
-                if d <= budget:
-                    q = 0.8 * (1 - d / len(t))
-                    if best is None or q > best[1]:
-                        best = ("fuzzy", q)
-    if best:
-        return best
-    if len(t) >= 3 and any(t in comp for comp in compacts):
-        return ("sub", 0.4)
-    return None
+# ---------------------------------------------------------------- search
+
+RESULT_FIELDS = ("id", "kind", "name", "category", "subcategory", "address", "lat", "lng",
+                 "distance_m", "rating", "review_count", "open_now", "match")
+ROOM_FIELDS = ("floor", "floor_label", "building_id", "building_name", "code", "room", "pathing", "verified")
 
 
-def _in_order_prefix(tokens, words):
-    """All tokens prefix-match name words in order, the first token matching the first word."""
-    if not tokens or not words or not words[0].startswith(tokens[0]):
-        return False
-    i = 1
-    for t in tokens[1:]:
-        while i < len(words) and not words[i].startswith(t):
-            i += 1
-        if i == len(words):
-            return False
-        i += 1
-    return True
-
-
-def classify(query: Query, c):
-    """-> (tier, text_similarity in [0, 1]) or None when the candidate does not match."""
-    if not query.has_text:
-        return T_INTENT, 0.6
-    q = query.norm
-    name_n = c.get("name_norm") or normalize(c.get("name"))
-    alias_ns = [a for a in (normalize(x) for x in (c.get("aliases") or [])) if a]
-    if q == name_n or q in alias_ns:
-        return T_EXACT, 1.0
-    name_words = name_n.split()
-    bare = name_n[4:] if name_n.startswith("the ") else name_n   # "The Coffee Bean" for "coffee b"
-    if (name_n.startswith(q) or bare.startswith(q)
-            or (len(query.tokens) > 1 and _in_order_prefix(query.sig, bare.split()))):
-        return T_PREFIX, 0.5 + 0.5 * min(1.0, len(q) / max(1, len(name_n)))
-
-    word_lists = [name_words] + [a.split() for a in alias_ns]
-    compacts = [name_n.replace(" ", "")] + [a.replace(" ", "") for a in alias_ns]
-    addr_words = normalize(c.get("address")).split()
-    covering = _intent_match(c, query.covering)
-    kinds, quals, intent_q = [], [], 0
-    for t in query.sig:
-        tok_intent = query.token_intents.get(t)
-        m = _token_match(t, word_lists, compacts, bool(tok_intent))
-        if m:
-            kinds.append(m[0])
-            quals.append(m[1])
-            continue
-        im = covering or _intent_match(c, tok_intent)
-        if im:
-            kinds.append("intent")
-            intent_q = max(intent_q, im)
-        elif any(w.startswith(t) for w in addr_words) or (len(t) >= 4 and t in " ".join(addr_words)):
-            kinds.append("addr")
-        else:
-            return None
-    named = [k for k in kinds if k in ("prefix", "fuzzy", "sub")]
-    if not named:
-        if "intent" in kinds:
-            return T_INTENT, 1.0 if intent_q == 2 else 0.6
-        return T_WEAK, 0.3
-    sim = min(1.0, sum(quals) / len(query.sig))
-    if all(k == "prefix" for k in named):
-        return T_WORD, sim
-    return T_FUZZY, sim
-
-
-def rank(query, candidates, near=None, now=None, open_now_only=False, is_open_fn=None):
-    """Order candidates best first. `query` is a str or a parsed Query. Each candidate is a dict
-    with name/name_norm/aliases/category/subcategory/address/kind/lat/lng/popularity/hours.
-    Adds `distance_m` (when near), `open_now` (when hours known), `_tier` and `_score`."""
-    if not isinstance(query, Query):
-        query = parse_query(query)
-    if is_open_fn is None:
-        is_open_fn = _is_open
-    now = now or datetime.now(LA)
-    if query.short:
-        w_text, w_prox, w_pop = 0.15, 0.50, 0.35
-    else:
-        w_text, w_prox, w_pop = 0.30, 0.55, 0.15
-
-    out = []
-    for c in candidates:
-        m = classify(query, c)
-        if m is None:
-            continue
-        tier, sim = m
-        r = dict(c)
-        if near and r.get("lat") is not None and r.get("lng") is not None:
-            d = r.get("distance_m")
-            if d is None:
-                d = haversine_m(near[0], near[1], r["lat"], r["lng"])
-            r["distance_m"] = int(round(d))
-            prox = 1.0 / (1.0 + d / D0_M)
-        else:
-            r.pop("distance_m", None)
-            prox = NEUTRAL_PROXIMITY
-        hours = r.get("hours")
-        r["open_now"] = is_open_fn(hours, now) if hours else None
-        if open_now_only and r["open_now"] is not True:
-            continue
-        score = w_text * sim + w_prox * prox + w_pop * float(r.get("popularity") or 0.0)
-        if r.get("kind") == "building":
-            score += BUILDING_BOOST
-        if tier == T_PREFIX:
-            score += FULL_PREFIX_BONUS
-        r["_tier"], r["_score"] = tier, score
-        out.append(r)
-    out.sort(key=lambda r: (TIER_BAND[r["_tier"]], -r["_score"], r.get("distance_m") or 0, r.get("name") or ""))
+def to_result(r):
+    out = {k: r[k] for k in RESULT_FIELDS if k in r}
+    if out.get("open_now") is None:
+        out.pop("open_now", None)
+    if r.get("kind") == "room":
+        out.update({k: r.get(k) for k in ROOM_FIELDS})
     return out
+
+
+def search(q=None, near=None, bbox=None, categories=None, open_now=False, limit=20, now=None):
+    idx = get_index()
+    if idx is None or not idx.N:
+        return []
+    pq = idx.parse(q) if q and normalize(q) else None
+    qvec = _query_vector(idx, pq)
+    ranked = idx.search(q, near=near, bbox=bbox, categories=categories, open_now=open_now, limit=limit,
+                        now=now or datetime.now(LA), qvec=qvec, is_open_fn=_is_open)
+    return [to_result(r) for r in ranked]
 
 
 def _is_open(hours, now):
@@ -420,26 +225,6 @@ def _is_open(hours, now):
     except ImportError:
         return None
     return is_open(hours, now)
-
-
-# ---------------------------------------------------------------- shaping
-
-RESULT_FIELDS = ("id", "kind", "name", "category", "subcategory", "address", "lat", "lng",
-                 "distance_m", "rating", "review_count", "open_now")
-
-
-def to_result(r):
-    out = {k: r.get(k) for k in RESULT_FIELDS if k in r}
-    if out.get("open_now") is None:
-        out.pop("open_now", None)
-    return out
-
-
-def search(q=None, near=None, bbox=None, categories=None, open_now=False, limit=20, now=None):
-    query = parse_query(q)
-    rows = fetch_candidates(query, near, bbox, categories, candidate_cap(limit, open_now))
-    ranked = rank(query, rows, near, now, open_now_only=open_now)
-    return [to_result(r) for r in ranked[:limit]]
 
 
 WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
@@ -484,7 +269,7 @@ def category_tree(rows=None):
         rows = fetch_all("""
             SELECT category, subcategory, count(*)::int AS count,
                    mode() WITHIN GROUP (ORDER BY categories[1]) AS label
-            FROM places WHERE category IS NOT NULL
+            FROM places WHERE category IS NOT NULL AND kind <> 'room'
             GROUP BY category, subcategory""")
     by_cat = {}
     for r in rows:
@@ -509,6 +294,8 @@ def category_tree(rows=None):
 
 DETAIL_KEYS = ("phone", "website", "photo_url", "rating_breakdown", "attributes", "description",
                "reviews", "plus_code")
+ROOM_DETAIL_KEYS = ("floor", "floor_label", "floor_confidence", "building_id", "building_name", "code", "room",
+                    "campus", "pathing", "capacity", "classroom_type", "furniture", "equipment", "url")
 
 
 def place_detail(place_id, near=None, now=None):
@@ -517,14 +304,14 @@ def place_detail(place_id, near=None, now=None):
                rating, review_count, hours, detail, source
         FROM places WHERE id = :id""", id=place_id)
     if not rows:
-        return None
+        return synthesized_room_detail(place_id, near)
     r = rows[0]
     detail = r.pop("detail") or {}
     hours = r.pop("hours")
     out = {k: r.get(k) for k in ("id", "kind", "name", "category", "subcategory", "address", "lat", "lng",
                                  "rating", "review_count")}
     if near and r.get("lat") is not None:
-        out["distance_m"] = int(round(haversine_m(near[0], near[1], r["lat"], r["lng"])))
+        out["distance_m"] = int(round(float(haversine_m(near[0], near[1], r["lat"], r["lng"]))))
     open_now = _is_open(hours, now or datetime.now(LA)) if hours else None
     if open_now is not None:
         out["open_now"] = open_now
@@ -534,7 +321,31 @@ def place_detail(place_id, near=None, now=None):
     out["aliases"] = r.get("aliases") or []
     out["categories"] = r.get("categories") or []
     out["source"] = r.get("source")
+    if r.get("kind") == "room":
+        out.update({k: detail.get(k) for k in ROOM_DETAIL_KEYS})
+        out["pathing"] = bool(out.get("pathing"))
+        out["verified"] = True
     return out
+
+
+def synthesized_room_detail(place_id, near=None):
+    """/places/room:RTH-108 for a room that is not in the dataset: placed at its building, floor from
+    the room number (same as the search result). None unless "<code> <room>" is a valid room."""
+    if not str(place_id).startswith("room:") or "-" not in place_id:
+        return None
+    from .rooms import parse_room_query
+
+    code, room = place_id[5:].split("-", 1)
+    idx = get_index()
+    if idx is None or not parse_room_query(f"{code} {room}", idx.known_codes):
+        return None
+    r = idx.room_result(code, room, near)
+    if r is None:
+        return None
+    r.pop("match", None)
+    r.update(hours=None, hours_text=None, aliases=[], categories=[], source="synthesized",
+             **{k: None for k in DETAIL_KEYS})
+    return r
 
 
 REVERSE_RADIUS_M = 60.0
@@ -557,7 +368,7 @@ def reverse_geocode(lat, lng):
     rows = fetch_all(f"""
         SELECT id, kind, name, address, ST_DistanceSphere(geom, {pt}) AS distance_m
         FROM places
-        WHERE geom && ST_Expand({pt}, 0.0009) AND name IS NOT NULL
+        WHERE geom && ST_Expand({pt}, 0.0009) AND name IS NOT NULL AND kind <> 'room'
           AND ST_DistanceSphere(geom, {pt}) <= :radius
         ORDER BY (kind = 'building') DESC, geom <-> {pt}
         LIMIT 1""", lat=lat, lng=lng, radius=REVERSE_RADIUS_M)

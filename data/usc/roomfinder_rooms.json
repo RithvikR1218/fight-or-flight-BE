@@ -1,9 +1,10 @@
 {
- "fetched_at": "2026-11-15T07:19:25+00:00",
+ "fetched_at": "2026-11-15T08:30:39+00:00",
  "source": "https://sites.usc.edu/roomfinder/wp-json/wp/v2/posts",
  "buildings": {
   "CHP": {
    "name": null,
+   "campus": "HSC",
    "lat": null,
    "lng": null,
    "room_count": 6,
@@ -19,6 +20,7 @@
   },
   "DMC": {
    "name": "Dr. Joseph Medicine Crow Center for International and Public Affairs",
+   "campus": "UPC",
    "lat": 34.021163,
    "lng": -118.283722,
    "room_count": 44,
@@ -71,9 +73,10 @@
    ]
   },
   "DOH": {
-   "name": "Edward L Doheny Junior Memorial Library",
-   "lat": 34.020163,
-   "lng": -118.283741,
+   "name": null,
+   "campus": "HSC",
+   "lat": null,
+   "lng": null,
    "room_count": 1,
    "total_seats": 120,
    "rooms": [
@@ -82,6 +85,7 @@
   },
   "GFS": {
    "name": "Grace Ford Salvatori Hall of Letters, Arts and Sciences",
+   "campus": "UPC",
    "lat": 34.021307,
    "lng": -118.288031,
    "room_count": 31,
@@ -122,6 +126,7 @@
   },
   "HAR": {
    "name": "May Ormerod Harris Hall",
+   "campus": "UPC",
    "lat": 34.018827,
    "lng": -118.287689,
    "room_count": 1,
@@ -132,6 +137,7 @@
   },
   "HED": {
    "name": null,
+   "campus": "UPC",
    "lat": null,
    "lng": null,
    "room_count": 1,
@@ -142,6 +148,7 @@
   },
   "KAP": {
    "name": "Kaprielian Hall",
+   "campus": "UPC",
    "lat": 34.022414,
    "lng": -118.291023,
    "room_count": 20,
@@ -171,6 +178,7 @@
   },
   "KDC": {
    "name": "Glorya Kaufman International Dance Center",
+   "campus": "UPC",
    "lat": 34.023617,
    "lng": -118.285227,
    "room_count": 4,
@@ -184,6 +192,7 @@
   },
   "KOH": {
    "name": null,
+   "campus": "UPC",
    "lat": null,
    "lng": null,
    "room_count": 1,
@@ -194,6 +203,7 @@
   },
   "LVL": {
    "name": "Leavey Library",
+   "campus": "UPC",
    "lat": 34.021785,
    "lng": -118.28294,
    "room_count": 7,
@@ -210,6 +220,7 @@
   },
   "MHP": {
    "name": "Seeley Wintersmith Mudd Memorial Hall of Philosophy",
+   "campus": "UPC",
    "lat": 34.018626,
    "lng": -118.286931,
    "room_count": 3,
@@ -222,6 +233,7 @@
   },
   "MRF": {
    "name": "Montgomery Ross Fisher Building",
+   "campus": "UPC",
    "lat": 34.022341,
    "lng": -118.282531,
    "room_count": 3,
@@ -234,6 +246,7 @@
   },
   "SAL": {
    "name": "Henry Salvatori Computer Science Center",
+   "campus": "UPC",
    "lat": 34.019485,
    "lng": -118.289513,
    "room_count": 1,
@@ -244,6 +257,7 @@
   },
   "SGM": {
    "name": "Seeley G. Mudd Building",
+   "campus": "UPC",
    "lat": 34.021507,
    "lng": -118.288944,
    "room_count": 5,
@@ -258,6 +272,7 @@
   },
   "SLH": {
    "name": "Stauffer Science Lecture Hall",
+   "campus": "UPC",
    "lat": 34.019622,
    "lng": -118.287593,
    "room_count": 3,
@@ -270,6 +285,7 @@
   },
   "SOS": {
    "name": "Social Sciences Building",
+   "campus": "UPC",
    "lat": 34.021581,
    "lng": -118.283763,
    "room_count": 14,
@@ -293,6 +309,7 @@
   },
   "SSL": {
    "name": "Seaver Science Library",
+   "campus": "UPC",
    "lat": 34.019585,
    "lng": -118.288758,
    "room_count": 1,
@@ -303,6 +320,7 @@
   },
   "THH": {
    "name": "Taper Hall",
+   "campus": "UPC",
    "lat": 34.022229,
    "lng": -118.284616,
    "room_count": 37,
@@ -349,6 +367,7 @@
   },
   "VHE": {
    "name": "Vivian Hall of Engineering",
+   "campus": "UPC",
    "lat": 34.020154,
    "lng": -118.288237,
    "room_count": 4,
@@ -362,21 +381,24 @@
   },
   "VPD": {
    "name": "Verna and Peter Dauterive Hall",
+   "campus": "UPC",
    "lat": 34.018908,
    "lng": -118.283753,
-   "room_count": 6,
-   "total_seats": 297,
+   "room_count": 7,
+   "total_seats": 333,
    "rooms": [
     "105",
     "106",
     "107",
     "110",
     "112",
-    "116"
+    "116",
+    "LL101"
    ]
   },
   "WPH": {
    "name": "Waite Phillips Hall",
+   "campus": "UPC",
    "lat": 34.021956,
    "lng": -118.283825,
    "room_count": 21,
@@ -407,6 +429,7 @@
   },
   "ZHS": {
    "name": "Zumberge Hall of Science",
+   "campus": "UPC",
    "lat": 34.01932,
    "lng": -118.286337,
    "room_count": 5,
@@ -425,9 +448,13 @@
    "room_id": "CHP 219",
    "building": "CHP",
    "room": "219",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 8,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -437,15 +464,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/chp-219/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/chp-219/",
+   "in_index": true
   },
   {
    "room_id": "CHP 221",
    "building": "CHP",
    "room": "221",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -455,15 +489,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-221/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-221/",
+   "in_index": true
   },
   {
    "room_id": "CHP 224",
    "building": "CHP",
    "room": "224",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 58,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": null,
+   "tv_monitors": 2,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -476,15 +517,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-224/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-224/",
+   "in_index": true
   },
   {
    "room_id": "CHP 225",
    "building": "CHP",
    "room": "225",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 52,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": null,
+   "tv_monitors": 2,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -497,15 +545,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-225/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-225/",
+   "in_index": true
   },
   {
    "room_id": "CHP 233A",
    "building": "CHP",
    "room": "233A",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 37,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": 2,
    "equipment": [
     "2 Fabric projection Screens",
     "2 Laser Projectors with HD 1080p output",
@@ -518,15 +573,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-233a/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-233a/",
+   "in_index": true
   },
   {
    "room_id": "CHP 233D",
    "building": "CHP",
    "room": "233D",
+   "campus": "HSC",
    "classroom_type": "General Use Classroom",
    "capacity": 16,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": null,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -536,15 +598,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-233d/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/chp-233d/",
+   "in_index": true
   },
   {
    "room_id": "DMC 100",
    "building": "DMC",
    "room": "100",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 58,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -556,15 +625,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/dmc-100/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/dmc-100/",
+   "in_index": true
   },
   {
    "room_id": "DMC 101",
    "building": "DMC",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -575,15 +651,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-101/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-101/",
+   "in_index": true
   },
   {
    "room_id": "DMC 102",
    "building": "DMC",
    "room": "102",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 50,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -594,15 +677,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-102/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-102/",
+   "in_index": true
   },
   {
    "room_id": "DMC 103",
    "building": "DMC",
    "room": "103",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -612,15 +702,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-103/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-103/",
+   "in_index": true
   },
   {
    "room_id": "DMC 104",
    "building": "DMC",
    "room": "104",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 16,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -630,15 +727,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-104/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-104/",
+   "in_index": true
   },
   {
    "room_id": "DMC 105",
    "building": "DMC",
    "room": "105",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -649,15 +753,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-105/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-105/",
+   "in_index": true
   },
   {
    "room_id": "DMC 106",
    "building": "DMC",
    "room": "106",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -668,15 +779,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-106/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-106/",
+   "in_index": true
   },
   {
    "room_id": "DMC 107",
    "building": "DMC",
    "room": "107",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 22,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -687,15 +805,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-107/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-107/",
+   "in_index": true
   },
   {
    "room_id": "DMC 108",
    "building": "DMC",
    "room": "108",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 22,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -706,15 +831,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-108/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-108/",
+   "in_index": true
   },
   {
    "room_id": "DMC 109",
    "building": "DMC",
    "room": "109",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 26,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -725,15 +857,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-109/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-109/",
+   "in_index": true
   },
   {
    "room_id": "DMC 110",
    "building": "DMC",
    "room": "110",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 21,
    "furniture": "Node tablet chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -744,15 +883,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-110/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-110/",
+   "in_index": true
   },
   {
    "room_id": "DMC 111",
    "building": "DMC",
    "room": "111",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -763,15 +909,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-111/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-111/",
+   "in_index": true
   },
   {
    "room_id": "DMC 150",
    "building": "DMC",
    "room": "150",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 56,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 2,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -783,15 +936,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-150/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-150/",
+   "in_index": true
   },
   {
    "room_id": "DMC 151",
    "building": "DMC",
    "room": "151",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -802,15 +962,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-151/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-151/",
+   "in_index": true
   },
   {
    "room_id": "DMC 152",
    "building": "DMC",
    "room": "152",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 2,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 LCD Displays",
@@ -823,15 +990,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-152/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-152/",
+   "in_index": true
   },
   {
    "room_id": "DMC 153",
    "building": "DMC",
    "room": "153",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Blu-ray Player (region free)",
     "Flat panel display",
@@ -840,15 +1014,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-153/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-153/",
+   "in_index": true
   },
   {
    "room_id": "DMC 154",
    "building": "DMC",
    "room": "154",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -859,15 +1040,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-154/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-154/",
+   "in_index": true
   },
   {
    "room_id": "DMC 155",
    "building": "DMC",
    "room": "155",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -878,15 +1066,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-155/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-155/",
+   "in_index": true
   },
   {
    "room_id": "DMC 156",
    "building": "DMC",
    "room": "156",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 2,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 LCD Displays",
@@ -899,15 +1094,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-156/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-156/",
+   "in_index": true
   },
   {
    "room_id": "DMC 157",
    "building": "DMC",
    "room": "157",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -918,15 +1120,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-157/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-157/",
+   "in_index": true
   },
   {
    "room_id": "DMC 158",
    "building": "DMC",
    "room": "158",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -937,15 +1146,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-158/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-158/",
+   "in_index": true
   },
   {
    "room_id": "DMC 160",
    "building": "DMC",
    "room": "160",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -956,15 +1172,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-160/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-160/",
+   "in_index": true
   },
   {
    "room_id": "DMC 161",
    "building": "DMC",
    "room": "161",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 2,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -975,15 +1198,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-161/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-161/",
+   "in_index": true
   },
   {
    "room_id": "DMC 200",
    "building": "DMC",
    "room": "200",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -994,15 +1224,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-200/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-200/",
+   "in_index": true
   },
   {
    "room_id": "DMC 201",
    "building": "DMC",
    "room": "201",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 37,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1013,15 +1250,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-201/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-201/",
+   "in_index": true
   },
   {
    "room_id": "DMC 202",
    "building": "DMC",
    "room": "202",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Crestron Touch Panel Control",
@@ -1033,15 +1277,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-202/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-202/",
+   "in_index": true
   },
   {
    "room_id": "DMC 203",
    "building": "DMC",
    "room": "203",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 37,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "ACrestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1052,15 +1303,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-203/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-203/",
+   "in_index": true
   },
   {
    "room_id": "DMC 204",
    "building": "DMC",
    "room": "204",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 18,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1071,15 +1329,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-204/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-204/",
+   "in_index": true
   },
   {
    "room_id": "DMC 205",
    "building": "DMC",
    "room": "205",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1090,15 +1355,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-205/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-205/",
+   "in_index": true
   },
   {
    "room_id": "DMC 206",
    "building": "DMC",
    "room": "206",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 26,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1109,15 +1381,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-206/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-206/",
+   "in_index": true
   },
   {
    "room_id": "DMC 207",
    "building": "DMC",
    "room": "207",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1128,15 +1407,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-207/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-207/",
+   "in_index": true
   },
   {
    "room_id": "DMC 208",
    "building": "DMC",
    "room": "208",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1147,15 +1433,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-208/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-208/",
+   "in_index": true
   },
   {
    "room_id": "DMC 209",
    "building": "DMC",
    "room": "209",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 26,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1166,15 +1459,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-209/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-209/",
+   "in_index": true
   },
   {
    "room_id": "DMC 210",
    "building": "DMC",
    "room": "210",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 35,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Crestron Touch Panel Control",
@@ -1186,15 +1486,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-210/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-210/",
+   "in_index": true
   },
   {
    "room_id": "DMC 211",
    "building": "DMC",
    "room": "211",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1205,15 +1512,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-211/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-211/",
+   "in_index": true
   },
   {
    "room_id": "DMC 252",
    "building": "DMC",
    "room": "252",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1224,15 +1538,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-252/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-252/",
+   "in_index": true
   },
   {
    "room_id": "DMC 254",
    "building": "DMC",
    "room": "254",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1243,15 +1564,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-254/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-254/",
+   "in_index": true
   },
   {
    "room_id": "DMC 255",
    "building": "DMC",
    "room": "255",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1262,15 +1590,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-255/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-255/",
+   "in_index": true
   },
   {
    "room_id": "DMC 256",
    "building": "DMC",
    "room": "256",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1281,15 +1616,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-256/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-256/",
+   "in_index": true
   },
   {
    "room_id": "DMC 257",
    "building": "DMC",
    "room": "257",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Node tablet chairs",
+   "whiteboards": 0,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1300,15 +1642,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-257/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-257/",
+   "in_index": true
   },
   {
    "room_id": "DMC 258",
    "building": "DMC",
    "room": "258",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1319,15 +1668,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-258/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-258/",
+   "in_index": true
   },
   {
    "room_id": "DMC 259",
    "building": "DMC",
    "room": "259",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 21,
    "furniture": "Node tablet chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1338,15 +1694,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-259/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-259/",
+   "in_index": true
   },
   {
    "room_id": "DMC 260",
    "building": "DMC",
    "room": "260",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 37,
    "furniture": "Node tablet chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1357,15 +1720,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-260/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-260/",
+   "in_index": true
   },
   {
    "room_id": "DMC 261",
    "building": "DMC",
    "room": "261",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 37,
    "furniture": "Node tablet chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Fabric projection screen",
@@ -1375,15 +1745,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-261/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/dmc-261/",
+   "in_index": true
   },
   {
    "room_id": "DOH 172",
    "building": "DOH",
    "room": "172",
+   "campus": "HSC",
    "classroom_type": "Auditorium",
    "capacity": 120,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -1394,15 +1771,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2024/08/21/doh-172/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2024/08/21/doh-172/",
+   "in_index": true
   },
   {
    "room_id": "GFS 06",
    "building": "GFS",
    "room": "06",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 144,
    "furniture": "Fixed auditorium seating / Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": 5,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -1417,15 +1801,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/09/gfs-06/"
+   "special_technology": "This room is equipped for full HD 1080p resolution to all monitors and projectors",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/09/gfs-06/",
+   "in_index": false
   },
   {
    "room_id": "GFS 101",
    "building": "GFS",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1436,15 +1827,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/gfs-101/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/gfs-101/",
+   "in_index": true
   },
   {
    "room_id": "GFS 104",
    "building": "GFS",
    "room": "104",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1455,15 +1853,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-104/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-104/",
+   "in_index": true
   },
   {
    "room_id": "GFS 105",
    "building": "GFS",
    "room": "105",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "3.5 Audio Connection",
     "Audio Visual Touch Panel Control",
@@ -1474,15 +1879,22 @@
     "Network / Ethernet Cable",
     "USB Type “C”"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-105/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-105/",
+   "in_index": true
   },
   {
    "room_id": "GFS 106",
    "building": "GFS",
    "room": "106",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 144,
    "furniture": "Fixed auditorium seating / Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": 5,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -1496,15 +1908,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-106/"
+   "special_technology": "This room is equipped for full HD 1080p resolution to all monitors and projectors",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-106/",
+   "in_index": true
   },
   {
    "room_id": "GFS 107",
    "building": "GFS",
    "room": "107",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1515,15 +1934,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-107/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-107/",
+   "in_index": true
   },
   {
    "room_id": "GFS 108",
    "building": "GFS",
    "room": "108",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1534,15 +1960,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-108/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-108/",
+   "in_index": true
   },
   {
    "room_id": "GFS 109",
    "building": "GFS",
    "room": "109",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1553,15 +1986,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-109/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-109/",
+   "in_index": true
   },
   {
    "room_id": "GFS 111",
    "building": "GFS",
    "room": "111",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1572,15 +2012,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-111/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-111/",
+   "in_index": true
   },
   {
    "room_id": "GFS 112",
    "building": "GFS",
    "room": "112",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1590,15 +2037,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-112/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-112/",
+   "in_index": true
   },
   {
    "room_id": "GFS 113",
    "building": "GFS",
    "room": "113",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1609,15 +2063,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-113/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-113/",
+   "in_index": true
   },
   {
    "room_id": "GFS 114",
    "building": "GFS",
    "room": "114",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1628,15 +2089,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-114/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-114/",
+   "in_index": true
   },
   {
    "room_id": "GFS 116",
    "building": "GFS",
    "room": "116",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 82,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 6,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -1648,15 +2116,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-116/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-116/",
+   "in_index": true
   },
   {
    "room_id": "GFS 118",
    "building": "GFS",
    "room": "118",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 5,
+   "blackboards": 2,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1667,15 +2142,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-118/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-118/",
+   "in_index": true
   },
   {
    "room_id": "GFS 201",
    "building": "GFS",
    "room": "201",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1686,15 +2168,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-201/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-201/",
+   "in_index": true
   },
   {
    "room_id": "GFS 202",
    "building": "GFS",
    "room": "202",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1704,15 +2193,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-202/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-202/",
+   "in_index": true
   },
   {
    "room_id": "GFS 204",
    "building": "GFS",
    "room": "204",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1722,15 +2218,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-204/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-204/",
+   "in_index": true
   },
   {
    "room_id": "GFS 205",
    "building": "GFS",
    "room": "205",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1741,15 +2244,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-205/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-205/",
+   "in_index": true
   },
   {
    "room_id": "GFS 207",
    "building": "GFS",
    "room": "207",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 44,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": null,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1760,15 +2270,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-207/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-207/",
+   "in_index": true
   },
   {
    "room_id": "GFS 210",
    "building": "GFS",
    "room": "210",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1779,15 +2296,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-210/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-210/",
+   "in_index": true
   },
   {
    "room_id": "GFS 212",
    "building": "GFS",
    "room": "212",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1797,15 +2321,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-212/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-212/",
+   "in_index": true
   },
   {
    "room_id": "GFS 213",
    "building": "GFS",
    "room": "213",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1816,15 +2347,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-213/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-213/",
+   "in_index": true
   },
   {
    "room_id": "GFS 216",
    "building": "GFS",
    "room": "216",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1835,15 +2373,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-216/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-216/",
+   "in_index": true
   },
   {
    "room_id": "GFS 217",
    "building": "GFS",
    "room": "217",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1854,15 +2399,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-217/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-217/",
+   "in_index": true
   },
   {
    "room_id": "GFS 218",
    "building": "GFS",
    "room": "218",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1873,15 +2425,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-218/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-218/",
+   "in_index": true
   },
   {
    "room_id": "GFS 220",
    "building": "GFS",
    "room": "220",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1892,15 +2451,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-220/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-220/",
+   "in_index": true
   },
   {
    "room_id": "GFS 221",
    "building": "GFS",
    "room": "221",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1910,15 +2476,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-221/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-221/",
+   "in_index": true
   },
   {
    "room_id": "GFS 222",
    "building": "GFS",
    "room": "222",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 31,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 5,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1927,15 +2500,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-222/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-222/",
+   "in_index": true
   },
   {
    "room_id": "GFS 223",
    "building": "GFS",
    "room": "223",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 3,
+   "blackboards": 2,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1945,15 +2525,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-223/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-223/",
+   "in_index": true
   },
   {
    "room_id": "GFS 228",
    "building": "GFS",
    "room": "228",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1963,15 +2550,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-228/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-228/",
+   "in_index": true
   },
   {
    "room_id": "GFS 229",
    "building": "GFS",
    "room": "229",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -1981,15 +2575,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-229/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/gfs-229/",
+   "in_index": true
   },
   {
    "room_id": "HAR 101",
    "building": "HAR",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 170,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Blu-ray Player (region free)",
@@ -2000,15 +2601,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/har-101/"
+   "special_technology": "Motion-tracking distance learning camera is available for recording lectures and events.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/har-101/",
+   "in_index": true
   },
   {
    "room_id": "HED 103",
    "building": "HED",
    "room": "103",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 16,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": null,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2018,15 +2626,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/hed-103/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/hed-103/",
+   "in_index": true
   },
   {
    "room_id": "KAP 113",
    "building": "KAP",
    "room": "113",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2036,15 +2651,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kap-113/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kap-113/",
+   "in_index": true
   },
   {
    "room_id": "KAP 134",
    "building": "KAP",
    "room": "134",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2054,15 +2676,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-134/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-134/",
+   "in_index": true
   },
   {
    "room_id": "KAP 137",
    "building": "KAP",
    "room": "137",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2074,15 +2703,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-137/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-137/",
+   "in_index": true
   },
   {
    "room_id": "KAP 138",
    "building": "KAP",
    "room": "138",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2093,15 +2729,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-138/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-138/",
+   "in_index": true
   },
   {
    "room_id": "KAP 140",
    "building": "KAP",
    "room": "140",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 31,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2112,15 +2755,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-140/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-140/",
+   "in_index": true
   },
   {
    "room_id": "KAP 141",
    "building": "KAP",
    "room": "141",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2131,15 +2781,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-141/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-141/",
+   "in_index": true
   },
   {
    "room_id": "KAP 144",
    "building": "KAP",
    "room": "144",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2148,15 +2805,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-144/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-144/",
+   "in_index": true
   },
   {
    "room_id": "KAP 145",
    "building": "KAP",
    "room": "145",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2165,15 +2829,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-145/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-145/",
+   "in_index": true
   },
   {
    "room_id": "KAP 146",
    "building": "KAP",
    "room": "146",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2183,15 +2854,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-146/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-146/",
+   "in_index": true
   },
   {
    "room_id": "KAP 147",
    "building": "KAP",
    "room": "147",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 35,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2201,15 +2879,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-147/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-147/",
+   "in_index": true
   },
   {
    "room_id": "KAP 148",
    "building": "KAP",
    "room": "148",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 35,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2219,15 +2904,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-148/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-148/",
+   "in_index": true
   },
   {
    "room_id": "KAP 150",
    "building": "KAP",
    "room": "150",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2239,15 +2931,22 @@
     "Network / Ethernet Cable",
     "USB Type “C”"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-150/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-150/",
+   "in_index": true
   },
   {
    "room_id": "KAP 156",
    "building": "KAP",
    "room": "156",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2258,15 +2957,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-156/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-156/",
+   "in_index": true
   },
   {
    "room_id": "KAP 158",
    "building": "KAP",
    "room": "158",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2276,15 +2982,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-158/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-158/",
+   "in_index": true
   },
   {
    "room_id": "KAP 159",
    "building": "KAP",
    "room": "159",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2295,15 +3008,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-159/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-159/",
+   "in_index": true
   },
   {
    "room_id": "KAP 163",
    "building": "KAP",
    "room": "163",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2314,15 +3034,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-163/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-163/",
+   "in_index": true
   },
   {
    "room_id": "KAP 164",
    "building": "KAP",
    "room": "164",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2332,15 +3059,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-164/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-164/",
+   "in_index": true
   },
   {
    "room_id": "KAP 165",
    "building": "KAP",
    "room": "165",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2350,15 +3084,22 @@
     "LCD projector, projection screen, speakers",
     "USB Type “C”"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-165/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-165/",
+   "in_index": true
   },
   {
    "room_id": "KAP 166",
    "building": "KAP",
    "room": "166",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2370,15 +3111,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-166/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-166/",
+   "in_index": true
   },
   {
    "room_id": "KAP 167",
    "building": "KAP",
    "room": "167",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2389,15 +3137,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-167/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/kap-167/",
+   "in_index": true
   },
   {
    "room_id": "KDC 235",
    "building": "KDC",
    "room": "235",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -2409,15 +3164,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-235/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-235/",
+   "in_index": true
   },
   {
    "room_id": "KDC 236",
    "building": "KDC",
    "room": "236",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2428,15 +3190,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/2058/"
+   "special_technology": null,
+   "wallbox": "Av Wall in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/2058/",
+   "in_index": true
   },
   {
    "room_id": "KDC 240",
    "building": "KDC",
    "room": "240",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -2447,15 +3216,22 @@
     "Mini Display Port (Mini DP) Cable",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-240/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-240/",
+   "in_index": true
   },
   {
    "room_id": "KDC 241",
    "building": "KDC",
    "room": "241",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2466,15 +3242,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-241/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/kdc-241/",
+   "in_index": true
   },
   {
    "room_id": "KOH 208",
    "building": "KOH",
    "room": "208",
+   "campus": "UPC",
    "classroom_type": "Computer Classroom",
    "capacity": 32,
    "furniture": "Fixed tables",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -2486,15 +3269,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/koh-208/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/koh-208/",
+   "in_index": true
   },
   {
    "room_id": "LVL 13",
    "building": "LVL",
    "room": "13",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -2506,15 +3296,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/22/lvl-13/"
+   "special_technology": null,
+   "wallbox": "Av Wall in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/22/lvl-13/",
+   "in_index": true
   },
   {
    "room_id": "LVL 16",
    "building": "LVL",
    "room": "16",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 4,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -2526,15 +3323,22 @@
     "LCD projector, projection screen, speakers",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-16/"
+   "special_technology": null,
+   "wallbox": "Av Wall in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-16/",
+   "in_index": true
   },
   {
    "room_id": "LVL 17",
    "building": "LVL",
    "room": "17",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 74,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "2 Wireless Lavaliere and 2 Wireless Handheld Microphones",
     "Audio Visual Touch Panel Control",
@@ -2548,42 +3352,63 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-17/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-17/",
+   "in_index": true
   },
   {
    "room_id": "LVL 3B",
    "building": "LVL",
    "room": "3B",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 4,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "Blu-ray Player (region free)",
     "Fabric projection screen",
     "Laser Projector with HD 1080p output",
     "Network / Ethernet Cable"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3b/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3b/",
+   "in_index": true
   },
   {
    "room_id": "LVL 3C",
    "building": "LVL",
    "room": "3C",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Fixed table and chairs",
+   "whiteboards": 0,
+   "blackboards": 0,
+   "tv_monitors": 5,
    "equipment": [
     "Large Direct View LED Display"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2025/03/26/lvl-3c/"
+   "special_technology": "Advanced Gaming & Streaming Equipment",
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2025/03/26/lvl-3c/",
+   "in_index": true
   },
   {
    "room_id": "LVL 3V",
    "building": "LVL",
    "room": "3V",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "Blu-ray Player (region free)",
     "Fabric projection screen",
@@ -2591,15 +3416,22 @@
     "Laser Projector with HD 1080p output",
     "Network / Ethernet Cable"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3v/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3v/",
+   "in_index": true
   },
   {
    "room_id": "LVL 3Y",
    "building": "LVL",
    "room": "3Y",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 19,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "Blu-ray Player (region free)",
     "Fabric projection screen",
@@ -2607,15 +3439,22 @@
     "Laser Projector with HD 1080p output",
     "Network / Ethernet Cable"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3y/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/31/lvl-3y/",
+   "in_index": true
   },
   {
    "room_id": "MHP 101",
    "building": "MHP",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 154,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 0,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2626,15 +3465,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/mhp-101/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/mhp-101/",
+   "in_index": true
   },
   {
    "room_id": "MHP 102",
    "building": "MHP",
    "room": "102",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Fixed tables",
+   "whiteboards": 0,
+   "blackboards": 2,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2644,15 +3490,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mhp-102/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mhp-102/",
+   "in_index": true
   },
   {
    "room_id": "MHP B7B",
    "building": "MHP",
    "room": "B7B",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 2,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2662,15 +3515,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mhp-b7b/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mhp-b7b/",
+   "in_index": true
   },
   {
    "room_id": "MRF 206",
    "building": "MRF",
    "room": "206",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2679,15 +3539,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/mrf-206/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/mrf-206/",
+   "in_index": true
   },
   {
    "room_id": "MRF 229",
    "building": "MRF",
    "room": "229",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Mobile table and tables",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2699,15 +3566,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mrf-229/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mrf-229/",
+   "in_index": true
   },
   {
    "room_id": "MRF 340",
    "building": "MRF",
    "room": "340",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 145,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 2,
+   "blackboards": 2,
+   "tv_monitors": 0,
    "equipment": [
     "2 Confidence Monitors",
     "2 Fabric Projection Screens",
@@ -2722,15 +3596,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mrf-340/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/mrf-340/",
+   "in_index": true
   },
   {
    "room_id": "SAL 101",
    "building": "SAL",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 263,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 4,
+   "blackboards": 0,
+   "tv_monitors": 2,
    "equipment": [
     "2 Confidence Monitors",
     "2 Fabric Projection Screens",
@@ -2745,15 +3626,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sal-101/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sal-101/",
+   "in_index": true
   },
   {
    "room_id": "SGM 101",
    "building": "SGM",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 163,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 1,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Rear Fill LCD Monitors",
@@ -2767,15 +3655,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sgm-101/"
+   "special_technology": "6 XLR inputs available for additional microphones.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sgm-101/",
+   "in_index": true
   },
   {
    "room_id": "SGM 123",
    "building": "SGM",
    "room": "123",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 331,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2785,15 +3680,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-123/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-123/",
+   "in_index": true
   },
   {
    "room_id": "SGM 124",
    "building": "SGM",
    "room": "124",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 244,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region-free)",
@@ -2805,15 +3707,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-124/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-124/",
+   "in_index": true
   },
   {
    "room_id": "SGM 226",
    "building": "SGM",
    "room": "226",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 2,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2824,15 +3733,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-226/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-226/",
+   "in_index": true
   },
   {
    "room_id": "SGM 601",
    "building": "SGM",
    "room": "601",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 49,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2844,15 +3760,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-601/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sgm-601/",
+   "in_index": true
   },
   {
    "room_id": "SLH 100",
    "building": "SLH",
    "room": "100",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 93,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2863,15 +3786,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/slh-100/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/slh-100/",
+   "in_index": true
   },
   {
    "room_id": "SLH 102",
    "building": "SLH",
    "room": "102",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 93,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region-free)",
@@ -2883,15 +3813,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/slh-102/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/slh-102/",
+   "in_index": true
   },
   {
    "room_id": "SLH 200",
    "building": "SLH",
    "room": "200",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 187,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "2 Fabric projection Screens",
     "2 Wireless Lavaliere and 2 Wireless Handheld Microphones",
@@ -2904,15 +3841,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/slh-200/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/slh-200/",
+   "in_index": true
   },
   {
    "room_id": "SOS B2",
    "building": "SOS",
    "room": "B2",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 98,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Audio Visual Touch Panel Control",
@@ -2924,15 +3868,22 @@
     "USB Type “C”",
     "Wireless microphone"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sos-b2/"
+   "special_technology": null,
+   "wallbox": "Av Wall in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/sos-b2/",
+   "in_index": true
   },
   {
    "room_id": "SOS B37",
    "building": "SOS",
    "room": "B37",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 27,
    "furniture": "Node tablet chairs",
+   "whiteboards": 3,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2943,15 +3894,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b37/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b37/",
+   "in_index": true
   },
   {
    "room_id": "SOS B38",
    "building": "SOS",
    "room": "B38",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 15,
    "furniture": "Node tablet chairs",
+   "whiteboards": 2,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2963,15 +3921,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b38/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b38/",
+   "in_index": true
   },
   {
    "room_id": "SOS B4",
    "building": "SOS",
    "room": "B4",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 64,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -2983,15 +3948,22 @@
     "Wireless microphone",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b4/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b4/",
+   "in_index": true
   },
   {
    "room_id": "SOS B41",
    "building": "SOS",
    "room": "B41",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 26,
    "furniture": "Node tablet chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3002,15 +3974,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b41/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b41/",
+   "in_index": true
   },
   {
    "room_id": "SOS B43",
    "building": "SOS",
    "room": "B43",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 16,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 1,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3021,15 +4000,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b43/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b43/",
+   "in_index": true
   },
   {
    "room_id": "SOS B44",
    "building": "SOS",
    "room": "B44",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 56,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Blu-ray Player (region free)",
     "Fabric projection screen",
@@ -3040,15 +4026,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b44/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b44/",
+   "in_index": true
   },
   {
    "room_id": "SOS B45",
    "building": "SOS",
    "room": "B45",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 16,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 2,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3058,15 +4051,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b45/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b45/",
+   "in_index": true
   },
   {
    "room_id": "SOS B46",
    "building": "SOS",
    "room": "B46",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 75,
    "furniture": "Tablet arm chairs",
+   "whiteboards": 5,
+   "blackboards": 4,
+   "tv_monitors": 2,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 LCD Displays",
@@ -3079,15 +4079,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b46/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b46/",
+   "in_index": true
   },
   {
    "room_id": "SOS B47",
    "building": "SOS",
    "room": "B47",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 26,
    "furniture": "Node tablet chairs",
+   "whiteboards": 2,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Blu-ray Player (region free)",
     "Fabric projection screen",
@@ -3097,15 +4104,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b47/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b47/",
+   "in_index": true
   },
   {
    "room_id": "SOS B48",
    "building": "SOS",
    "room": "B48",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 0,
+   "blackboards": 8,
+   "tv_monitors": 0,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3116,15 +4130,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b48/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b48/",
+   "in_index": true
   },
   {
    "room_id": "SOS B50",
    "building": "SOS",
    "room": "B50",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 2,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3134,15 +4155,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b50/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b50/",
+   "in_index": true
   },
   {
    "room_id": "SOS B51",
    "building": "SOS",
    "room": "B51",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 3,
+   "blackboards": 2,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3152,15 +4180,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b51/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b51/",
+   "in_index": true
   },
   {
    "room_id": "SOS B52",
    "building": "SOS",
    "room": "B52",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 4,
+   "tv_monitors": 0,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3171,15 +4206,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b52/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/sos-b52/",
+   "in_index": true
   },
   {
    "room_id": "SSL 202",
    "building": "SSL",
    "room": "202",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 62,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Rear Fill LCD Monitors",
@@ -3191,15 +4233,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/ssl-202/"
+   "special_technology": null,
+   "wallbox": "Av Wall in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/ssl-202/",
+   "in_index": true
   },
   {
    "room_id": "THH 101",
    "building": "THH",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 319,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 0,
+   "blackboards": 1,
+   "tv_monitors": 0,
    "equipment": [
     "2 Confidence Monitors",
     "2 Fabric Projection Screens",
@@ -3215,25 +4264,39 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-101-3/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-101-3/",
+   "in_index": true
   },
   {
    "room_id": "THH 102",
    "building": "THH",
    "room": "102",
+   "campus": "UPC",
    "classroom_type": null,
    "capacity": null,
    "furniture": null,
+   "whiteboards": null,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-102/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-102/",
+   "in_index": true
   },
   {
    "room_id": "THH 105",
    "building": "THH",
    "room": "105",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 14,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3242,25 +4305,39 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-105/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-105/",
+   "in_index": true
   },
   {
    "room_id": "THH 106",
    "building": "THH",
    "room": "106",
+   "campus": "UPC",
    "classroom_type": null,
    "capacity": null,
    "furniture": null,
+   "whiteboards": null,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-106/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-106/",
+   "in_index": true
   },
   {
    "room_id": "THH 107",
    "building": "THH",
    "room": "107",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 14,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3271,15 +4348,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-107/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-107/",
+   "in_index": true
   },
   {
    "room_id": "THH 108",
    "building": "THH",
    "room": "108",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3288,15 +4372,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-108/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-108/",
+   "in_index": true
   },
   {
    "room_id": "THH 109",
    "building": "THH",
    "room": "109",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 14,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3306,15 +4397,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-109/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-109/",
+   "in_index": true
   },
   {
    "room_id": "THH 110",
    "building": "THH",
    "room": "110",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3325,15 +4423,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-110/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/29/thh-110/",
+   "in_index": true
   },
   {
    "room_id": "THH 111",
    "building": "THH",
    "room": "111",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 14,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 1,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3341,15 +4446,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-111/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-111/",
+   "in_index": true
   },
   {
    "room_id": "THH 112",
    "building": "THH",
    "room": "112",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3359,15 +4471,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-112/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-112/",
+   "in_index": true
   },
   {
    "room_id": "THH 113",
    "building": "THH",
    "room": "113",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3378,15 +4497,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-113/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-113/",
+   "in_index": true
   },
   {
    "room_id": "THH 114",
    "building": "THH",
    "room": "114",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Node tablet chairs",
+   "whiteboards": 1,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3398,15 +4524,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-114/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-114/",
+   "in_index": true
   },
   {
    "room_id": "THH 115",
    "building": "THH",
    "room": "115",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3416,15 +4549,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-115/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-115/",
+   "in_index": true
   },
   {
    "room_id": "THH 116",
    "building": "THH",
    "room": "116",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 60,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3434,15 +4574,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-116/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-116/",
+   "in_index": true
   },
   {
    "room_id": "THH 117",
    "building": "THH",
    "room": "117",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3454,15 +4601,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-117/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-117/",
+   "in_index": true
   },
   {
    "room_id": "THH 118",
    "building": "THH",
    "room": "118",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3473,15 +4627,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-118/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-118/",
+   "in_index": true
   },
   {
    "room_id": "THH 119",
    "building": "THH",
    "room": "119",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 38,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3491,15 +4652,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-119/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-119/",
+   "in_index": true
   },
   {
    "room_id": "THH 121",
    "building": "THH",
    "room": "121",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "3.5 Audio Connection",
     "Blu-ray Player (region free)",
@@ -3507,15 +4675,22 @@
     "Network / Ethernet Cable",
     "USB Type “C”"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-121/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/02/thh-121/",
+   "in_index": true
   },
   {
    "room_id": "THH 201",
    "building": "THH",
    "room": "201",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 294,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": null,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "2 Confidence Monitors",
     "2 Rear Fill LCD Monitors",
@@ -3530,15 +4705,22 @@
     "Zoom enabled",
     "High-Definition PTZ Camera"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-201/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-201/",
+   "in_index": true
   },
   {
    "room_id": "THH 202",
    "building": "THH",
    "room": "202",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 159,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": null,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "2 Confidence Monitors",
     "2 Wireless Lavaliere and 2 Wireless Handheld Microphones",
@@ -3552,15 +4734,22 @@
     "Zoom enabled",
     "High-Definition PTZ Camera"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-202/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-202/",
+   "in_index": true
   },
   {
    "room_id": "THH 203",
    "building": "THH",
    "room": "203",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3571,15 +4760,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-203/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-203/",
+   "in_index": true
   },
   {
    "room_id": "THH 205",
    "building": "THH",
    "room": "205",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3590,15 +4786,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-205/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-205/",
+   "in_index": true
   },
   {
    "room_id": "THH 207",
    "building": "THH",
    "room": "207",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3610,15 +4813,22 @@
     "Zoom enabled",
     "Document Camera"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-207/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-207/",
+   "in_index": true
   },
   {
    "room_id": "THH 208",
    "building": "THH",
    "room": "208",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 72,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3630,15 +4840,22 @@
     "Zoom enabled",
     "Document Camera"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-208/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-208/",
+   "in_index": true
   },
   {
    "room_id": "THH 209",
    "building": "THH",
    "room": "209",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3649,15 +4866,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-209/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-209/",
+   "in_index": true
   },
   {
    "room_id": "THH 210",
    "building": "THH",
    "room": "210",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 72,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3668,15 +4892,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-210/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-210/",
+   "in_index": true
   },
   {
    "room_id": "THH 211",
    "building": "THH",
    "room": "211",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 20,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3687,15 +4918,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-211/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-211/",
+   "in_index": true
   },
   {
    "room_id": "THH 212",
    "building": "THH",
    "room": "212",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 72,
    "furniture": "Node table chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3706,15 +4944,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-212/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-212/",
+   "in_index": true
   },
   {
    "room_id": "THH 213",
    "building": "THH",
    "room": "213",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Node table chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3725,15 +4970,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-213/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-213/",
+   "in_index": true
   },
   {
    "room_id": "THH 214",
    "building": "THH",
    "room": "214",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3744,15 +4996,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-214/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-214/",
+   "in_index": true
   },
   {
    "room_id": "THH 215",
    "building": "THH",
    "room": "215",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3763,15 +5022,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-215/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-215/",
+   "in_index": true
   },
   {
    "room_id": "THH 217",
    "building": "THH",
    "room": "217",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3782,15 +5048,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-217/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-217/",
+   "in_index": true
   },
   {
    "room_id": "THH 219",
    "building": "THH",
    "room": "219",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3800,15 +5073,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-219/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-219/",
+   "in_index": true
   },
   {
    "room_id": "THH 221",
    "building": "THH",
    "room": "221",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 10,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3818,15 +5098,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-221/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-221/",
+   "in_index": true
   },
   {
    "room_id": "THH 301",
    "building": "THH",
    "room": "301",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 173,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": null,
+   "blackboards": 1,
+   "tv_monitors": null,
    "equipment": [
     "2 Confidence Monitors",
     "High-Definition PTZ Camera",
@@ -3842,15 +5129,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-301/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-301/",
+   "in_index": true
   },
   {
    "room_id": "THH B09",
    "building": "THH",
    "room": "B09",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 27,
    "furniture": "Node table chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3860,15 +5154,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-b09/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-b09/",
+   "in_index": true
   },
   {
    "room_id": "THH B10",
    "building": "THH",
    "room": "B10",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Node table chairs",
+   "whiteboards": 2,
+   "blackboards": 1,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3878,15 +5179,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-b10/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/thh-b10/",
+   "in_index": true
   },
   {
    "room_id": "VHE 206",
    "building": "VHE",
    "room": "206",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 31,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -3898,15 +5206,22 @@
     "VGA Connection",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/vhe-206/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/vhe-206/",
+   "in_index": true
   },
   {
    "room_id": "VHE 210",
    "building": "VHE",
    "room": "210",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 31,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3917,15 +5232,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-210/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-210/",
+   "in_index": true
   },
   {
    "room_id": "VHE 214",
    "building": "VHE",
    "room": "214",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 25,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3936,15 +5258,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-214/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-214/",
+   "in_index": true
   },
   {
    "room_id": "VHE 217",
    "building": "VHE",
    "room": "217",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 41,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3955,15 +5284,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-217/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vhe-217/",
+   "in_index": true
   },
   {
    "room_id": "VPD 105",
    "building": "VPD",
    "room": "105",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 68,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -3975,15 +5311,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/vpd-105/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/vpd-105/",
+   "in_index": true
   },
   {
    "room_id": "VPD 106",
    "building": "VPD",
    "room": "106",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -3994,15 +5337,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-106/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-106/",
+   "in_index": true
   },
   {
    "room_id": "VPD 107",
    "building": "VPD",
    "room": "107",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 24,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4013,15 +5363,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-107/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-107/",
+   "in_index": true
   },
   {
    "room_id": "VPD 110",
    "building": "VPD",
    "room": "110",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4032,15 +5389,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-110/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-110/",
+   "in_index": true
   },
   {
    "room_id": "VPD 112",
    "building": "VPD",
    "room": "112",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 68,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Fabric projection Screens",
@@ -4053,15 +5417,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-112/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-112/",
+   "in_index": true
   },
   {
    "room_id": "VPD 116",
    "building": "VPD",
    "room": "116",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 57,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Crestron Touch Panel Control",
@@ -4073,15 +5444,49 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-116/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-116/",
+   "in_index": true
+  },
+  {
+   "room_id": "VPD LL101",
+   "building": "VPD",
+   "room": "LL101",
+   "campus": "UPC",
+   "classroom_type": "General Use Classroom",
+   "capacity": 36,
+   "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
+   "equipment": [
+    "2 Fabric projection Screens",
+    "2 LED Projectors with HD 1080p output",
+    "Crestron Touch Panel Control",
+    "Blu-ray/DVD Player (region free)",
+    "Fabric projection screen",
+    "HDMI Connection",
+    "– Mini Display Port",
+    "– USC Type “C” Adapters",
+    "Zoom enabled"
+   ],
+   "special_technology": "This room has a wall divider that can be utilized to divide area into two separate spaces.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/vpd-ll101/",
+   "in_index": true
   },
   {
    "room_id": "WPH 101",
    "building": "WPH",
    "room": "101",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 33,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "Audio Visual Touch Panel Control",
     "Blu-ray Player (region free)",
@@ -4092,15 +5497,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/wph-101/"
+   "special_technology": null,
+   "wallbox": "Built In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/wph-101/",
+   "in_index": true
   },
   {
    "room_id": "WPH 102",
    "building": "WPH",
    "room": "102",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 42,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4112,15 +5524,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-102/"
+   "special_technology": null,
+   "wallbox": "Built-In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-102/",
+   "in_index": true
   },
   {
    "room_id": "WPH 103",
    "building": "WPH",
    "room": "103",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Fabric projection screen",
@@ -4130,15 +5549,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-103/"
+   "special_technology": null,
+   "wallbox": "Built In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-103/",
+   "in_index": true
   },
   {
    "room_id": "WPH 104",
    "building": "WPH",
    "room": "104",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 18,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4149,15 +5575,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-104/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-104/",
+   "in_index": true
   },
   {
    "room_id": "WPH 106",
    "building": "WPH",
    "room": "106",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4168,15 +5601,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-106/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-106/",
+   "in_index": true
   },
   {
    "room_id": "WPH 107",
    "building": "WPH",
    "room": "107",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4187,15 +5627,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-107/"
+   "special_technology": null,
+   "wallbox": "Built In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-107/",
+   "in_index": true
   },
   {
    "room_id": "WPH 200",
    "building": "WPH",
    "room": "200",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Flat panel display",
@@ -4204,15 +5651,22 @@
     "– USB Type “C” Adapters",
     "Zoom Enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-200/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-200/",
+   "in_index": true
   },
   {
    "room_id": "WPH 201",
    "building": "WPH",
    "room": "201",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 22,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Fabric projection screen",
@@ -4222,15 +5676,22 @@
     "– USB Type “C” Adapters",
     "Zoom Enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-201/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-201/",
+   "in_index": true
   },
   {
    "room_id": "WPH 202",
    "building": "WPH",
    "room": "202",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 22,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Fabric projection screen",
@@ -4240,27 +5701,41 @@
     "– USB Type “C” Adapters",
     "Zoom Enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-202/"
+   "special_technology": null,
+   "wallbox": "Built-In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-202/",
+   "in_index": true
   },
   {
    "room_id": "WPH 203",
    "building": "WPH",
    "room": "203",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Built-in TV Wallbox"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-203/"
+   "special_technology": null,
+   "wallbox": "Built-In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/08/wph-203/",
+   "in_index": true
   },
   {
    "room_id": "WPH 204",
    "building": "WPH",
    "room": "204",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": 1,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Flat panel display",
@@ -4269,15 +5744,22 @@
     "– USB Type “C” Adapters",
     "Zoom Enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-204/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-204/",
+   "in_index": true
   },
   {
    "room_id": "WPH 205",
    "building": "WPH",
    "room": "205",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 36,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Blu-ray/DVD Player (region free)",
     "Fabric projection screen",
@@ -4287,15 +5769,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-205/"
+   "special_technology": null,
+   "wallbox": "Built-In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-205/",
+   "in_index": true
   },
   {
    "room_id": "WPH 206",
    "building": "WPH",
    "room": "206",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 32,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4306,15 +5795,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-206/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-206/",
+   "in_index": true
   },
   {
    "room_id": "WPH 207",
    "building": "WPH",
    "room": "207",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 40,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 1,
+   "blackboards": 4,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4325,15 +5821,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-207/"
+   "special_technology": null,
+   "wallbox": "Built-In TV Wallbox",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-207/",
+   "in_index": true
   },
   {
    "room_id": "WPH 400",
    "building": "WPH",
    "room": "400",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 1,
+   "blackboards": 3,
+   "tv_monitors": 1,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4344,15 +5847,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-400/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-400/",
+   "in_index": true
   },
   {
    "room_id": "WPH 603",
    "building": "WPH",
    "room": "603",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 12,
    "furniture": "Mobile table and chairs",
+   "whiteboards": 2,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4363,15 +5873,22 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-603/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-603/",
+   "in_index": true
   },
   {
    "room_id": "WPH B26",
    "building": "WPH",
    "room": "B26",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 28,
    "furniture": "Mobile table and chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4382,25 +5899,39 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b26/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b26/",
+   "in_index": true
   },
   {
    "room_id": "WPH B27",
    "building": "WPH",
    "room": "B27",
+   "campus": "UPC",
    "classroom_type": null,
    "capacity": null,
    "furniture": null,
+   "whiteboards": null,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b27/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b27/",
+   "in_index": true
   },
   {
    "room_id": "WPH B28",
    "building": "WPH",
    "room": "B28",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 48,
    "furniture": "Node tablet chairs",
+   "whiteboards": null,
+   "blackboards": 3,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4411,25 +5942,39 @@
     "– USB Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b28/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b28/",
+   "in_index": true
   },
   {
    "room_id": "WPH B30",
    "building": "WPH",
    "room": "B30",
+   "campus": "UPC",
    "classroom_type": null,
    "capacity": null,
    "furniture": null,
+   "whiteboards": null,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b30/"
+   "special_technology": null,
+   "wallbox": null,
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b30/",
+   "in_index": true
   },
   {
    "room_id": "WPH B36",
    "building": "WPH",
    "room": "B36",
+   "campus": "UPC",
    "classroom_type": "Dual-Purpose Lab-Computer",
    "capacity": 34,
    "furniture": "Fixed monitor lift tables",
+   "whiteboards": 1,
+   "blackboards": null,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "Crestron Touch Panel Control",
@@ -4442,15 +5987,22 @@
     "Zoom enabled",
     "Instructor Dell Windows 10 Desktop Workstation"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b36/"
+   "special_technology": null,
+   "wallbox": "AV Lectern w/ Zoom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/09/wph-b36/",
+   "in_index": true
   },
   {
    "room_id": "ZHS 159",
    "building": "ZHS",
    "room": "159",
+   "campus": "UPC",
    "classroom_type": "Auditorium",
    "capacity": 121,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": null,
+   "blackboards": 2,
+   "tv_monitors": null,
    "equipment": [
     "1 Wireless Lavaliere and 1 Handheld Microphone",
     "2 Rear Fill LCD Monitors",
@@ -4464,15 +6016,22 @@
     "USB Type “C”",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/08/24/zhs-159/"
+   "special_technology": "Room is ALS-ready. Call (213-821-6601) in advance to reserve Assisted Listening System.",
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/08/24/zhs-159/",
+   "in_index": true
   },
   {
    "room_id": "ZHS 163",
    "building": "ZHS",
    "room": "163",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 49,
    "furniture": "Fixed auditorium seating",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4483,15 +6042,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-163/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-163/",
+   "in_index": true
   },
   {
    "room_id": "ZHS 252",
    "building": "ZHS",
    "room": "252",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 76,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4502,15 +6068,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-252/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-252/",
+   "in_index": true
   },
   {
    "room_id": "ZHS 352",
    "building": "ZHS",
    "room": "352",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 76,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4521,15 +6094,22 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-352/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-352/",
+   "in_index": true
   },
   {
    "room_id": "ZHS 360",
    "building": "ZHS",
    "room": "360",
+   "campus": "UPC",
    "classroom_type": "General Use Classroom",
    "capacity": 30,
    "furniture": "Learn 2 chairs",
+   "whiteboards": 2,
+   "blackboards": 0,
+   "tv_monitors": null,
    "equipment": [
     "Crestron Touch Panel Control",
     "Blu-ray/DVD Player (region free)",
@@ -4540,7 +6120,10 @@
     "– USC Type “C” Adapters",
     "Zoom enabled"
    ],
-   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-360/"
+   "special_technology": null,
+   "wallbox": "AV Credenza in classroom",
+   "url": "https://sites.usc.edu/roomfinder/2022/09/07/zhs-360/",
+   "in_index": true
   }
  ]
 }

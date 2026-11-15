@@ -48,6 +48,11 @@ class Config:
 
     ADMIN_TOKEN = _env("ADMIN_TOKEN", "")
 
+    # Place search (services/search.py). The embedding model id is read by services/search_semantic.py
+    # from SEARCH_EMBED_MODEL directly, so the loader script and the API agree.
+    SEARCH_INDEX_TTL = _env("SEARCH_INDEX_TTL", 60.0, float)   # seconds between "did places change?" checks
+    SEARCH_SEMANTIC = _env("SEARCH_SEMANTIC", "auto")          # auto | on | off
+
     # Sign-in (Google OAuth, USC accounts only) and the session cookie. See README "Auth".
     SECRET_KEY = _env("SECRET_KEY", "")                   # signs the session cookie; required for sign-in
     GOOGLE_CLIENT_ID = _env("GOOGLE_CLIENT_ID", "")

@@ -27,3 +27,13 @@ class Place(db.Model):
     detail = db.Column(JSONB, nullable=False, server_default="{}")
     source = db.Column(db.Text)
     source_file = db.Column(db.Text)
+    embedding = db.Column(db.LargeBinary)      # 0005: float32 vector for semantic search
+    embed_key = db.Column(db.Text)
+
+
+class SearchMeta(db.Model):
+    """Key/value markers for the in-memory search index (migration 0005_search_index)."""
+    __tablename__ = "search_meta"
+    key = db.Column(db.Text, primary_key=True)
+    value = db.Column(db.Text, nullable=False)
+    updated_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.func.now())

@@ -182,88 +182,132 @@ def _c(category, subcategory=None):
     return {"category": category, "subcategory": subcategory}
 
 
+def _subs(category, *subcategories):
+    return [_c(category, s) for s in subcategories]
+
+
 # Normalized query term (one or more words, as text_norm.normalize would produce) -> intents.
+# An intent with a subcategory matches places that have that type among ANY of their labels
+# (slugs of places.categories), not only the primary one. Search (services/search_index.py) treats
+# these as "type" evidence next to the places' own labels, so only words whose meaning is NOT
+# already spelled out in the labels need an entry. Brand names are not listed: they match by name.
 QUERY_SYNONYMS: dict[str, list[dict]] = {
     # food
     "food": [_c("food")], "eat": [_c("food")], "eats": [_c("food")], "restaurant": [_c("food")],
-    "restaurants": [_c("food")], "lunch": [_c("food")], "dinner": [_c("food")], "breakfast": [_c("food")],
-    "brunch": [_c("food")], "meal": [_c("food")], "hungry": [_c("food")], "takeout": [_c("food")],
+    "restaurants": [_c("food")], "lunch": [_c("food")], "dinner": [_c("food")],
+    "breakfast": _subs("food", "breakfast_restaurant", "brunch_restaurant", "pancake_restaurant", "bagel_shop",
+                       "diner"),
+    "brunch": _subs("food", "brunch_restaurant", "breakfast_restaurant"),
+    "meal": [_c("food")], "hungry": [_c("food")], "takeout": [_c("food")],
     "fast food": [_c("food", "fast_food_restaurant")],
-    "pizza": [_c("food", "pizza_restaurant")], "burger": [_c("food", "hamburger_restaurant")],
+    "pizza": _subs("food", "pizza_restaurant", "pizza_delivery", "pizza_takeout"),
+    "burger": [_c("food", "hamburger_restaurant")],
     "burgers": [_c("food", "hamburger_restaurant")], "hamburger": [_c("food", "hamburger_restaurant")],
     "taco": [_c("food", "taco_restaurant")], "tacos": [_c("food", "taco_restaurant")],
     "mexican": [_c("food", "mexican_restaurant")], "chinese": [_c("food", "chinese_restaurant")],
     "thai": [_c("food", "thai_restaurant")], "japanese": [_c("food", "japanese_restaurant")],
     "korean": [_c("food", "korean_restaurant")], "italian": [_c("food", "italian_restaurant")],
     "indian": [_c("food", "indian_restaurant")], "vietnamese": [_c("food", "vietnamese_restaurant")],
-    "pho": [_c("food", "vietnamese_restaurant")], "sushi": [_c("food", "sushi_restaurant")],
-    "ramen": [_c("food", "ramen_restaurant")], "chicken": [_c("food", "chicken_restaurant")],
+    "pho": [_c("food", "vietnamese_restaurant")],
+    "sushi": _subs("food", "sushi_restaurant", "sushi_takeaway"),
+    "ramen": _subs("food", "ramen_restaurant", "japanese_curry_restaurant"),
+    "noodles": _subs("food", "noodle_shop", "chinese_noodle_restaurant", "ramen_restaurant", "pho_restaurant"),
+    "chicken": _subs("food", "chicken_restaurant", "fried_chicken_takeaway", "chicken_wings_restaurant", "chicken_shop"),
     "wings": [_c("food", "chicken_wings_restaurant")], "seafood": [_c("food", "seafood_restaurant")],
-    "bbq": [_c("food", "barbecue_restaurant")], "barbecue": [_c("food", "barbecue_restaurant")],
-    "vegan": [_c("food", "vegan_restaurant")], "vegetarian": [_c("food", "vegetarian_restaurant")],
+    "bbq": _subs("food", "barbecue_restaurant", "korean_barbecue_restaurant"),
+    "barbecue": _subs("food", "barbecue_restaurant", "korean_barbecue_restaurant"),
+    "korean bbq": [_c("food", "korean_barbecue_restaurant")],
+    "vegan": _subs("food", "vegan_restaurant", "vegetarian_restaurant", "vegetarian_cafe_and_deli"),
+    "vegetarian": _subs("food", "vegetarian_restaurant", "vegan_restaurant", "vegetarian_cafe_and_deli"),
     "sandwich": [_c("food", "sandwich_shop")], "sandwiches": [_c("food", "sandwich_shop")],
     "bakery": [_c("food", "bakery")], "donut": [_c("food", "donut_shop")], "donuts": [_c("food", "donut_shop")],
-    "dessert": [_c("food", "dessert_shop")], "ice cream": [_c("food", "ice_cream_shop")],
+    "dessert": _subs("food", "dessert_shop", "dessert_restaurant", "ice_cream_shop", "frozen_yogurt_shop",
+                     "cake_shop", "pastry_shop", "donut_shop", "cupcake_shop", "cookie_shop", "patisserie",
+                     "creperie", "bakery", "chocolate_shop"),
+    "ice cream": _subs("food", "ice_cream_shop", "frozen_yogurt_shop"),
     "froyo": [_c("food", "frozen_yogurt_shop")], "deli": [_c("food", "deli")],
     "dining hall": [_c("food")],
     # cafe
     "coffee": [_c("cafe")], "cafe": [_c("cafe")], "espresso": [_c("cafe")], "latte": [_c("cafe")],
     "tea": [_c("cafe")], "boba": [_c("cafe", "bubble_tea_store")], "bubble tea": [_c("cafe", "bubble_tea_store")],
     "milk tea": [_c("cafe", "bubble_tea_store")], "juice": [_c("cafe", "juice_shop")],
-    "smoothie": [_c("cafe", "juice_shop")], "starbucks": [_c("cafe")],
+    "smoothie": [_c("cafe", "juice_shop")],
     # bar
     "bar": [_c("bar")], "bars": [_c("bar")], "pub": [_c("bar")], "drinks": [_c("bar")], "beer": [_c("bar")],
-    "cocktail": [_c("bar", "cocktail_bar")], "cocktails": [_c("bar", "cocktail_bar")],
+    "drink": [_c("bar")], "cocktail": [_c("bar", "cocktail_bar")], "cocktails": [_c("bar", "cocktail_bar")],
     "nightlife": [_c("bar")], "club": [_c("bar", "night_club")], "nightclub": [_c("bar", "night_club")],
-    "brewery": [_c("bar", "brewery")],
+    "brewery": [_c("bar", "brewery")], "wine": _subs("bar", "wine_bar"),
     # grocery
-    "grocery": [_c("grocery")], "groceries": [_c("grocery")], "supermarket": [_c("grocery")],
+    "grocery": _subs("grocery", "grocery_store", "supermarket", "discount_supermarket", "fresh_food_market",
+                     "produce_market", "mexican_grocery_store", "asian_grocery_store", "korean_grocery_store",
+                     "gourmet_grocery_store", "health_food_store", "organic_food_store", "market"),
+    "groceries": _subs("grocery", "grocery_store", "supermarket", "discount_supermarket", "fresh_food_market",
+                       "produce_market", "mexican_grocery_store", "asian_grocery_store", "market"),
+    "supermarket": _subs("grocery", "supermarket", "grocery_store", "discount_supermarket"),
     "market": [_c("grocery")], "convenience store": [_c("grocery", "convenience_store")],
     "liquor": [_c("grocery", "liquor_store")], "liquor store": [_c("grocery", "liquor_store")],
-    "snacks": [_c("grocery", "convenience_store")], "trader joes": [_c("grocery")],
-    "7 eleven": [_c("grocery", "convenience_store")],
+    "snacks": [_c("grocery", "convenience_store")],
     # shopping
-    "shopping": [_c("shopping")], "shop": [_c("shopping")], "store": [_c("shopping")], "mall": [_c("shopping")],
-    "clothes": [_c("shopping")], "clothing": [_c("shopping")], "bookstore": [_c("shopping", "book_store")],
-    "books": [_c("shopping", "book_store")], "target": [_c("shopping")],
+    "shopping": [_c("shopping")], "mall": [_c("shopping")],
+    "clothes": [_c("shopping")], "clothing": [_c("shopping")],
+    "bookstore": _subs("shopping", "book_store", "comic_book_store", "christian_book_store", "childrens_book_store"),
+    "books": _subs("shopping", "book_store", "comic_book_store"),
+    "print": _subs("services", "print_shop", "copy_shop", "shipping_and_mailing_service") + [_c("shopping", "office_supply_store")],
+    "printing": _subs("services", "print_shop", "copy_shop", "shipping_and_mailing_service") + [_c("shopping", "office_supply_store")],
+    "printer": _subs("services", "print_shop", "copy_shop") + [_c("shopping", "office_supply_store")],
     # study
-    "study": [_c("study")], "studying": [_c("study")], "study spot": [_c("study")], "library": [_c("study")],
-    "libraries": [_c("study")], "coworking": [_c("study")], "quiet": [_c("study")],
+    "study": [_c("study")], "studying": [_c("study")], "study spot": [_c("study")],
+    "library": _subs("study", "library", "public_library", "university_library", "law_library", "childrens_library"),
+    "libraries": _subs("study", "library", "public_library", "university_library", "law_library"),
+    "coworking": [_c("study")], "quiet": [_c("study")],
     # campus
-    "building": [_c("campus")], "hall": [_c("campus")], "classroom": [_c("campus")],
-    "lecture hall": [_c("campus")], "dorm": [_c("lodging")], "dorms": [_c("lodging")],
+    "classroom": [_c("campus")], "lecture hall": [_c("campus")], "dorm": [_c("lodging")], "dorms": [_c("lodging")],
     "residence hall": [_c("lodging")], "housing": [_c("lodging")], "apartment": [_c("lodging")],
     "apartments": [_c("lodging")], "hotel": [_c("lodging")], "motel": [_c("lodging")],
     # education
     "school": [_c("education")], "university": [_c("education")], "college": [_c("education")],
     # health
-    "pharmacy": [_c("health", "pharmacy")], "drugstore": [_c("health", "pharmacy")],
-    "cvs": [_c("health", "pharmacy")], "walgreens": [_c("health", "pharmacy")],
-    "rite aid": [_c("health", "pharmacy")], "medicine": [_c("health")], "doctor": [_c("health")],
-    "clinic": [_c("health")], "hospital": [_c("health")], "urgent care": [_c("health", "urgent_care_center")],
-    "emergency room": [_c("health")], "dentist": [_c("health", "dentist")],
+    "pharmacy": _subs("health", "pharmacy", "drug_store"), "drugstore": _subs("health", "drug_store", "pharmacy"),
+    "medicine": _subs("health", "pharmacy", "drug_store"),
+    "doctor": _subs("health", "doctor", "medical_clinic", "family_practice_physician", "general_practitioner",
+                    "internist", "medical_group", "walk_in_clinic", "urgent_care_center"),
+    "clinic": _subs("health", "medical_clinic", "walk_in_clinic", "community_health_center", "urgent_care_center"),
+    "hospital": _subs("health", "hospital", "general_hospital", "medical_center", "emergency_room",
+                      "childrens_hospital"),
+    "urgent care": _subs("health", "urgent_care_center", "walk_in_clinic", "emergency_room"),
+    "emergency room": _subs("health", "emergency_room", "hospital", "medical_center"),
+    "dentist": _subs("health", "dentist", "dental_clinic", "cosmetic_dentist"),
     "health": [_c("health")], "student health": [_c("health")],
     # fitness
     "gym": [_c("fitness")], "workout": [_c("fitness")], "fitness": [_c("fitness")], "yoga": [_c("fitness")],
+    "exercise": [_c("fitness")],
     "pilates": [_c("fitness")], "pool": [_c("fitness")], "swim": [_c("fitness")], "tennis": [_c("fitness")],
-    "basketball": [_c("fitness")], "rec center": [_c("fitness")], "lyon center": [_c("fitness")],
+    "basketball": [_c("fitness")], "rec center": [_c("fitness")],
     # outdoors
     "park": [_c("outdoors")], "parks": [_c("outdoors")], "playground": [_c("outdoors")],
     "hike": [_c("outdoors")], "hiking": [_c("outdoors")], "garden": [_c("outdoors")],
-    "dog park": [_c("outdoors", "dog_park")], "outdoor seating": [_c("outdoors")], "seating": [_c("outdoors")],
-    "tables": [_c("outdoors")],
-    # entertainment
-    "museum": [_c("entertainment")], "movie": [_c("entertainment", "movie_theater")],
+    "dog park": [_c("outdoors", "dog_park")], "outdoor seating": [_c("outdoors", "outdoor_seating")],
+    "seating": [_c("outdoors", "outdoor_seating")], "tables": [_c("outdoors", "outdoor_seating")],
+    # entertainment ("museum", "theater", "gallery", ... are spelled out in the places' own labels)
+    "movie": [_c("entertainment", "movie_theater")],
     "movies": [_c("entertainment", "movie_theater")], "cinema": [_c("entertainment", "movie_theater")],
-    "theater": [_c("entertainment")], "theatre": [_c("entertainment")], "art": [_c("entertainment")],
-    "gallery": [_c("entertainment")], "bowling": [_c("entertainment")], "concert": [_c("entertainment")],
-    "stadium": [_c("entertainment")],
+    "art": [_c("entertainment")],
     # services
-    "atm": [_c("services", "atm")], "bank": [_c("services")], "cash": [_c("services", "atm")],
-    "laundry": [_c("services")], "laundromat": [_c("services", "laundromat")],
-    "haircut": [_c("services")], "barber": [_c("services", "barber_shop")], "salon": [_c("services")],
+    "atm": [_c("services", "atm")],
+    "bank": _subs("services", "bank", "credit_union", "savings_bank", "financial_institution", "atm"),
+    "cash": [_c("services", "atm")],
+    "laundry": _subs("services", "laundromat", "laundry", "laundry_service", "dry_cleaner", "cleaners"),
+    "laundromat": [_c("services", "laundromat")],
+    "haircut": _subs("services", "barber_shop", "hair_salon", "hairdresser", "beauty_salon"),
+    "barber": [_c("services", "barber_shop")], "salon": [_c("services")],
+    "bike": _subs("services", "bicycle_repair_shop", "bike_service") + _subs("shopping", "bicycle_store")
+            + [_c("parking", "bike_parking")],
+    "bike repair": _subs("services", "bicycle_repair_shop", "bike_service") + _subs("shopping", "bicycle_store"),
+    "phone": _subs("services", "mobile_phone_repair_shop", "electronics_repair_shop")
+             + _subs("shopping", "cell_phone_store", "electronics_store"),
+    "phone repair": _subs("services", "mobile_phone_repair_shop", "electronics_repair_shop", "computer_repair_service"),
     "nails": [_c("services")], "post office": [_c("services", "post_office")], "mail": [_c("services")],
-    "gas": [_c("services", "gas_station")], "gas station": [_c("services", "gas_station")],
+    "gas": _subs("services", "gas_station", "truck_stop"), "gas station": [_c("services", "gas_station")],
     "bathroom": [_c("services", "public_bathroom")], "bathrooms": [_c("services", "public_bathroom")],
     "restroom": [_c("services", "public_bathroom")], "restrooms": [_c("services", "public_bathroom")],
     "toilet": [_c("services", "public_bathroom")],
@@ -272,11 +316,25 @@ QUERY_SYNONYMS: dict[str, list[dict]] = {
     "parking structure": [_c("parking")], "bike rack": [_c("parking", "bicycle_rack")],
     "bus": [_c("transit")], "bus stop": [_c("transit", "bus_stop")], "metro": [_c("transit")],
     "train": [_c("transit")], "light rail": [_c("transit")], "transit": [_c("transit")],
-    "station": [_c("transit")],
     # safety / community
     "police": [_c("safety")], "dps": [_c("safety")], "safety": [_c("safety")], "fire station": [_c("safety")],
     "church": [_c("community")], "worship": [_c("community")], "temple": [_c("community")],
 }
+
+# Query word -> other words that say the same thing in place names, type labels or reviews.
+# Search looks these up in every field (at a discount), e.g. "fix my phone" also finds "repair".
+TERM_SYNONYMS: dict[str, list[str]] = {
+    "bike": ["bicycle"], "bicycle": ["bike"], "fix": ["repair"], "repairs": ["repair"],
+    "haircut": ["barber", "hair"], "workout": ["gym", "fitness"], "exercise": ["gym", "fitness"],
+    "drinks": ["bar", "cocktail"], "drink": ["bar", "cocktail"], "eat": ["restaurant", "food"],
+    "hungry": ["restaurant", "food"], "print": ["printing", "copy"], "printing": ["print", "copy"],
+    "study": ["library"], "bathroom": ["restroom"], "restroom": ["bathroom"], "toilet": ["restroom"],
+    "cheap": ["affordable", "inexpensive"], "date": ["romantic"], "groceries": ["grocery"],
+    "movie": ["cinema", "theater"], "movies": ["cinema", "theater"], "doctor": ["clinic", "medical"],
+    "meds": ["pharmacy"], "medicine": ["pharmacy"], "gas": ["fuel"], "laptop": ["wifi"],
+    "bbq": ["barbecue"], "late": ["latenight"],
+}
+
 
 # Words too generic to trigger an intent by prefix while being typed.
 _NO_PREFIX = {"the", "and", "for", "near", "with", "from", "out", "open", "best", "new", "los", "las",

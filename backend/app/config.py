@@ -47,6 +47,10 @@ class Config:
     HTTP_TIMEOUT = _env("HTTP_TIMEOUT", 15, int)
 
     ADMIN_TOKEN = _env("ADMIN_TOKEN", "")
+    # Simulated crimes for demo recordings (/api/v1/demo/incidents). Off in production; see README "Demo mode".
+    DEMO_MODE = _env("DEMO_MODE", False, _bool)
+    DEMO_INCIDENT_TTL_MIN = _env("DEMO_INCIDENT_TTL_MIN", 60, int)     # a simulated crime expires after this
+    DEMO_INCIDENT_RADIUS_M = _env("DEMO_INCIDENT_RADIUS_M", 120, float)  # routes avoid this radius around one
 
     # Place search (services/search.py). The embedding model id is read by services/search_semantic.py
     # from SEARCH_EMBED_MODEL directly, so the loader script and the API agree.

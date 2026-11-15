@@ -258,7 +258,7 @@ class History:
 
         # Darkness: civil dawn/dusk per unique date (astral is the slow bit).
         uniq, inv = np.unique(dates.normalize().to_numpy(), return_inverse=True)
-        tw = np.array([geo.twilight_hours(pd.Timestamp(u).date()) for u in uniq])
+        tw = np.array([geo.twilight_hours(pd.Timestamp(u).date()) for u in uniq]).reshape(-1, 2)  # (0, 2) when empty
         mid = hi + 0.5
         is_dark = ((mid < tw[inv, 0]) | (mid > tw[inv, 1])).astype(np.int8)
 

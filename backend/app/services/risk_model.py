@@ -148,6 +148,10 @@ def heatmap(date: dt.date) -> dict:
         if cache is None:
             log.info("building risk heatmap for %s (~20 s)", key)
             cache = score.build_cache(date)
+            if not cache["cells"]:
+                log.warning("risk heatmap for %s has no modelled cells: crime.db has no usable LAPD history; "
+                            "every cell gets the neutral no-data risk. Run `python -m scripts.backfill_crime "
+                            "--source lapd --start 2020-01-01` then `python -m scripts.export_crime_db`", key)
         cache["_risk_index"] = {c: np.asarray(v["risk"], dtype=np.float32) for c, v in cache["cells"].items()}
         _heatmaps[key] = cache
         while len(_heatmaps) > _CACHE_DATES:

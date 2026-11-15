@@ -195,9 +195,12 @@ def build_cache(date=None, top_k: int = 3) -> dict:
     cells = list(hist.cells)
     cc = [c for c in cells for _ in range(24)]
     hh = [h for _ in cells for h in range(24)]
-    X = _frame(cc, hh, date)
-    prob, risk, contribs = _predict(X, with_contribs=True)
     feats = meta["features"]
+    if cells:
+        X = _frame(cc, hh, date)
+        prob, risk, contribs = _predict(X, with_contribs=True)
+    else:  # empty history (e.g. crime.db exported before the LAPD backfill): every cell is no-data
+        X, prob, risk, contribs = None, np.zeros(0), np.zeros(0), np.zeros((0, len(feats)))
     out = {}
     for i, c in enumerate(cells):
         sl = slice(i * 24, (i + 1) * 24)

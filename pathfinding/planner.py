@@ -34,6 +34,8 @@ How a route is chosen
    Only phones outside the zero-risk zones (campus.py) earn the score credit:
    on campus the risk is already 0, so a phone there adds no safety and
    chasing it would only add detour. n_phones still reports every phone passed.
+   Candidates with more exposure than the shortest path are dropped: the safe
+   route never carries more predicted risk than the fastest one.
    The plain shortest path is always a candidate, so a valid answer exists.
 """
 import math
@@ -52,6 +54,9 @@ MAX_DETOUR = 0.20          # route may be at most 20% longer than the shortest p
 PHONE_WEIGHT = 0.05        # one extra phone passed is worth 0.05 of mean risk
 DETOUR_WEIGHT = 0.05       # small tie-break toward shorter routes
 PHONE_CREDIT_CAP = 0.5     # phones can lower a route's score by at most half its exposure
+MIN_GAIN = 0.02            # safe route must beat the shortest's score by this much to be shown separately
+SIMILAR_OVERLAP = 0.8      # ...and if it shares this much of its length with the shortest path,
+SIMILAR_GAIN = 0.05        # it must beat it by this much
 PASS_RADIUS_M = 35.0       # within this distance of a phone = "passed" it
 PHONE_SNAP_M = 80.0        # phones farther than this from any street are not via targets
 LAMBDAS = (0.0, 1.0, 3.0, 8.0, 20.0)   # risk weights swept
@@ -122,9 +127,35 @@ def _phones_near_route(coords, phones, radius_m, step_m=10.0):
             for i in np.flatnonzero(d <= radius_m)]
 
 
+def _overlap(a, b, tol_m=8.0):
+    """Share of route a's length that runs within tol_m of route b (both [[lat, lon], ...])."""
+    a, b = np.asarray(a, dtype=float), np.asarray(b, dtype=float)
+    if len(a) < 2 or len(b) < 1:
+        return 0.0
+    lat0, lon0 = a[:, 0].mean(), a[:, 1].mean()
+    ax, ay = _local_xy(a[:, 0], a[:, 1], lat0, lon0)
+    bx, by = _local_xy(b[:, 0], b[:, 1], lat0, lon0)
+    # densify b so point-to-vertex distance approximates distance to the line
+    px, py = [bx[:1]], [by[:1]]
+    for i in range(len(bx) - 1):
+        n = max(1, int(math.hypot(bx[i + 1] - bx[i], by[i + 1] - by[i]) // 4))
+        t = np.arange(1, n + 1) / n
+        px.append(bx[i] + (bx[i + 1] - bx[i]) * t)
+        py.append(by[i] + (by[i + 1] - by[i]) * t)
+    px, py = np.concatenate(px), np.concatenate(py)
+    mx, my = (ax[:-1] + ax[1:]) / 2, (ay[:-1] + ay[1:]) / 2
+    seg = np.hypot(np.diff(ax), np.diff(ay))
+    near = np.zeros(len(mx), dtype=bool)
+    for i0 in range(0, len(mx), 512):
+        d = np.hypot(mx[i0:i0 + 512, None] - px[None, :], my[i0:i0 + 512, None] - py[None, :]).min(axis=1)
+        near[i0:i0 + 512] = d <= tol_m
+    return float(seg[near].sum() / seg.sum()) if seg.sum() > 0 else 1.0
+
+
 def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WEIGHT,
                detour_weight=DETOUR_WEIGHT, pass_radius_m=PASS_RADIUS_M,
-               lambdas=LAMBDAS, betas=BETAS, graph=None, risk=None):
+               lambdas=LAMBDAS, betas=BETAS, graph=None, risk=None,
+               min_gain=MIN_GAIN, similar_overlap=SIMILAR_OVERLAP, similar_gain=SIMILAR_GAIN):
     """Plan a safe walking route from start=(lat, lon) to end=(lat, lon).
 
     hour: local clock hour 0-23 (risk changes a lot by hour).
@@ -231,7 +262,20 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
     for c in cands:
         c.score = round(c.exposure - min(phone_weight * c.n_phones_scored, PHONE_CREDIT_CAP * c.exposure)
                         + detour_weight * max(c.detour_pct, 0) / 100, 4)
+    # A "safe" route may not add risk: phones break ties between routes that lower
+    # exposure, they never justify a riskier walk (risk already includes the phones'
+    # effect via the model's blue-light factor).
+    cands = [c for c in cands if c.exposure <= shortest.exposure + 1e-9]
     best = replace(min(cands, key=lambda c: (c.score, c.length_m)), label="safe")
+    # 6. One route when the safe one isn't really different: little score gain, or mostly
+    #    the same streets for a modest gain. The safe route is then the shortest path itself,
+    #    so the app (which hides identical lines) shows a single card.
+    gain = shortest.score - best.score
+    overlap = _overlap(best.coords, shortest.coords)
+    same = (best.coords == shortest.coords or gain < min_gain
+            or (overlap >= similar_overlap and gain < similar_gain))
+    if same:
+        best = replace(shortest, label="safe")
     return {
         "start": list(start), "end": list(end), "hour": int(hour),
         "risk_date": rg.date,
@@ -239,6 +283,7 @@ def plan_route(start, end, hour=22, max_detour=MAX_DETOUR, phone_weight=PHONE_WE
                    "detour_weight": detour_weight, "pass_radius_m": pass_radius_m,
                    "lambdas": list(lambdas), "betas": list(betas)},
         "shortest": shortest, "safe": best,
+        "same_route": bool(same), "safe_gain": round(float(gain), 4), "overlap": round(overlap, 3),
         "n_candidates": len(seen), "n_feasible": len(cands),
         "search_nodes": int(allowed.sum()), "search_edges": int(len(eidx)),
         "snap_m": [round(da, 1), round(db, 1)],

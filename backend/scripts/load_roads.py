@@ -50,10 +50,15 @@ def flat(v):
     return str(v)
 
 
-def walkable(d):
+def walkable(d, in_zone=False):
+    """in_zone: the segment lies inside USC campus / USC Village (pathfinding.campus), where
+    every path is open to pedestrians whatever its access/cycleway tags (Downey Way, for
+    one, is access=private). Fenced sides are handled by pathfinding.campus.CLOSED_SIDES."""
     foot = flat(d.get("foot"))
     if foot == "no" or d.get("area") == "yes":
         return False
+    if in_zone:
+        return d.get("highway") not in NOT_WALKABLE_HIGHWAY - {"cycleway"}
     if foot in FOOT_ALLOWED:   # explicitly open to pedestrians: cycleway, private service road, ...
         return d.get("highway") not in NOT_WALKABLE_HIGHWAY - {"cycleway"}
     return not (d.get("highway") in NOT_WALKABLE_HIGHWAY
@@ -72,7 +77,13 @@ def build_graph(pbf, circle, work):
     subprocess.run(["osmium", "cat", pbf, "-f", "osm", "-o", xml, "--overwrite"], check=True)
     G = ox.graph_from_xml(xml, bidirectional=True, simplify=False, retain_all=True)
     os.remove(xml)
-    drop = [(u, v, k) for u, v, k, d in G.edges(keys=True, data=True) if not walkable(d)]
+    from pathfinding.campus import in_zone_point
+
+    def zone(n):
+        return in_zone_point(G.nodes[n]["y"], G.nodes[n]["x"], 0.0)
+
+    drop = [(u, v, k) for u, v, k, d in G.edges(keys=True, data=True)
+            if not walkable(d, zone(u) and zone(v))]
     G.remove_edges_from(drop)
     G = ox.truncate.truncate_graph_polygon(G, circle, truncate_by_edge=True)
     G = ox.truncate.largest_component(G)

@@ -104,6 +104,51 @@ def _near(x, y, poly, r):
     return False
 
 
+# Fenced sides: walls you can only cross at a gate. Any walk edge that crosses a
+# wall more than gate_radius_m from every gate is removed from the graph
+# (WalkGraph does this), so routes can't cut through a fence or a building.
+# The Vermont side of campus is closed except at Downey Way (= W 36th Place). The wall
+# runs along the inner edge of the Vermont east sidewalk (lon -118.2913), so walking along that
+# sidewalk is still fine; it stops short of Jefferson and Exposition so the corners stay open.
+CLOSED_SIDES = [
+    {"name": "Vermont Ave (west side of campus)",
+     "wall": [(34.01865, -118.29130), (34.02515, -118.29130)],
+     "gates": [(34.02205, -118.29130)],     # Downey Way / W 36th Place
+     "gate_radius_m": 25.0},
+]
+
+
+def closed_side_mask(lat1, lon1, lat2, lon2):
+    """Bool array: True for segments (arrays of endpoints) that cross a closed side away from its gates."""
+    import numpy as np
+
+    lat1, lon1, lat2, lon2 = (np.asarray(a, dtype=float) for a in (lat1, lon1, lat2, lon2))
+    x1, y1 = _xy(lat1, lon1)
+    x2, y2 = _xy(lat2, lon2)
+    out = np.zeros(x1.shape, dtype=bool)
+    for side in CLOSED_SIDES:
+        wall = [_xy(la, lo) for la, lo in side["wall"]]
+        for (ax, ay), (bx, by) in zip(wall, wall[1:]):
+            # proper segment intersection, vectorised over the edges
+            def orient(px, py, qx, qy, rx, ry):
+                return np.sign((qx - px) * (ry - py) - (qy - py) * (rx - px))
+            hit = ((orient(ax, ay, bx, by, x1, y1) != orient(ax, ay, bx, by, x2, y2))
+                   & (orient(x1, y1, x2, y2, ax, ay) != orient(x1, y1, x2, y2, bx, by)))
+            if not hit.any():
+                continue
+            # crossing point, then distance to the nearest gate
+            dx, dy = x2 - x1, y2 - y1
+            den = dx * (by - ay) - dy * (bx - ax)
+            t = np.where(den != 0, ((ax - x1) * (by - ay) - (ay - y1) * (bx - ax)) / np.where(den == 0, 1, den), 0.5)
+            cx, cy = x1 + t * dx, y1 + t * dy
+            near_gate = np.zeros_like(hit)
+            for gla, glo in side["gates"]:
+                gx, gy = _xy(gla, glo)
+                near_gate |= np.hypot(cx - gx, cy - gy) <= side["gate_radius_m"]
+            out |= hit & ~near_gate
+    return out
+
+
 def in_zone_point(lat: float, lon: float, boundary_m: float = BOUNDARY_M) -> bool:
     """True if (lat, lon) is inside a zero-risk zone or within boundary_m of its outline."""
     x, y = _xy(lat, lon)

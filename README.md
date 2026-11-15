@@ -210,6 +210,19 @@ Known limits:
 - The model anchors its history at the end of 2023, because LAPD's 2024 NIBRS switch halved the old dataset's counts. NIBRS 2025+ data is therefore context only until the model is retrained on it.
 - Cells outside the 5-mile model circle, or in other police jurisdictions, have no score. Routes treat them as a neutral 0.5 and report `no_data_pct`.
 
+## Demo mode (simulated crimes)
+
+For recording the app without walking into risky areas. Off unless `DEMO_MODE=true` (then `docker compose up -d`).
+
+| Endpoint | What it does |
+|---|---|
+| `GET /api/v1/demo/status` | `{enabled, ttl_minutes, avoid_radius_m, categories}` |
+| `GET /api/v1/demo/incidents` | active simulated incidents (`{incidents: [{id, ts, lat, lng, category, severity}]}`) |
+| `POST /api/v1/demo/incidents` | `{lat, lng, category?, severity?}`: simulate one now (signed-in users only) |
+| `DELETE /api/v1/demo/incidents` | remove them all (signed-in users only) |
+
+A simulated incident is stored in `crime_incidents` with `source = 'demo'` (so `/incidents` lists it) and expires after `DEMO_INCIDENT_TTL_MIN` minutes. While it is active, `/route` treats everything within `DEMO_INCIDENT_RADIUS_M` of it as the riskiest street, even on campus, so routes go around it when the detour budget allows; route responses then include `demo_incidents` (how many were active). Demo rows never reach the risk model (`export_crime_db.py` exports `source = 'lapd'` only). The frontend's Demo page (`?demo`) drives these endpoints.
+
 ## Data files
 
 GitHub rejects files over 100 MB, so the large files live in a **GitHub Release** (tag `data-v2`; `data-v1` has the earlier 10-mile tiles). Release assets can be up to 2 GB each and don't use Git LFS quota. Everything else is in git.

@@ -25,7 +25,7 @@ from functools import lru_cache
 import h3
 
 from ..db_utils import fetch_all
-from . import risk_model
+from . import demo_incidents, risk_model
 
 log = logging.getLogger(__name__)
 MAX_SNAP_M = 300.0          # start/end farther than this from a walkable street -> 400
@@ -154,6 +154,17 @@ def risk_time(at=None, date=None, hour=None):
     return d, h, instant
 
 
+def _demo_incidents():
+    """Active simulated incidents when DEMO_MODE is on, else None."""
+    if not demo_incidents.enabled():
+        return None
+    try:
+        return demo_incidents.active()
+    except Exception as exc:  # noqa: BLE001  (a demo extra must never break routing)
+        log.warning("demo incidents unavailable: %s", exc)
+        return None
+
+
 def plan(start, end, at=None, date=None, hour=None, **params) -> dict:
     """Safe + shortest route between (lat, lon) points. params: planner knobs
     (max_detour, phone_weight, pass_radius_m)."""
@@ -169,12 +180,19 @@ def plan(start, end, at=None, date=None, hour=None, **params) -> dict:
         _, snap = g.nearest_node(la, lo)
         if snap > MAX_SNAP_M:
             raise RouteError(f"{name} is {snap:.0f} m from the nearest walkable street in the route area")
+    rg = risk_grid(d.isoformat())
+    demo = _demo_incidents()
+    if demo:   # demo mode: steer around simulated incidents (services/demo_incidents.py)
+        from flask import current_app
+        rg = demo_incidents.overlay(rg, [(i["lat"], i["lng"]) for i in demo], current_app.config["DEMO_INCIDENT_RADIUS_M"])
     try:
-        res = plan_route(start, end, hour=h, graph=g, risk=risk_grid(d.isoformat()), **params)
+        res = plan_route(start, end, hour=h, graph=g, risk=rg, **params)
     except ValueError as exc:  # same node / no path
         raise RouteError(str(exc)) from exc
     res["date"] = d.isoformat()
     res["risk_at"] = instant.astimezone(risk_model.LA).isoformat()   # the prediction hour used
+    if demo is not None:
+        res["demo_incidents"] = len(demo)
     res["safe"] = _route_json(res["safe"])
     res["shortest"] = _route_json(res["shortest"])
     return res

@@ -49,7 +49,8 @@ def status() -> dict:
         return {"available": False, "reason": f"algorithm package not importable: {exc}"}
     missing = [str(p.name) for p in (config.MODEL_PATH, config.META_PATH, config.DB_PATH) if not p.exists()]
     if missing:
-        hint = ("run `python -m scripts.export_crime_db`" if "crime.db" in missing
+        hint = ("run `./scripts/fetch_data.sh` (or `python -m scripts.export_crime_db`), then restart the api"
+                if "crime.db" in missing
                 else "train the model (algorithm/README.md)")
         return {"available": False, "reason": f"missing {', '.join(missing)}: {hint}"}
     return {"available": True}
@@ -150,8 +151,9 @@ def heatmap(date: dt.date) -> dict:
             cache = score.build_cache(date)
             if not cache["cells"]:
                 log.warning("risk heatmap for %s has no modelled cells: crime.db has no usable LAPD history; "
-                            "every cell gets the neutral no-data risk. Run `python -m scripts.backfill_crime "
-                            "--source lapd --start 2020-01-01` then `python -m scripts.export_crime_db`", key)
+                            "every cell gets the neutral no-data risk. Run `./scripts/fetch_data.sh` then restart the api "
+                            "(or `python -m scripts.backfill_crime --source lapd --start 2020-01-01` then "
+                            "`python -m scripts.export_crime_db`)", key)
         cache["_risk_index"] = {c: np.asarray(v["risk"], dtype=np.float32) for c, v in cache["cells"].items()}
         _heatmaps[key] = cache
         while len(_heatmaps) > _CACHE_DATES:
